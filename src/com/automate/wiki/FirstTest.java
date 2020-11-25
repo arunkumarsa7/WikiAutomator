@@ -21,7 +21,7 @@ public class FirstTest {
 		driver.manage().window().maximize();
 
 		// Click on the search text box and send value
-		driver.findElement(By.id("lst-ib")).sendKeys("javatpoint tutorials");
+		driver.findElement(By.xpath("//input[@title='Search']")).sendKeys("test");
 
 		// Click on the search button
 		driver.findElement(By.name("btnK")).click();
