@@ -1,35 +1,45 @@
 package com.automate.wiki;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class FirstTest {
 
-	public static void main(final String[] args) {
-		// System Property for IEDriver
+	WebDriver edgeDriver;
+
+	@Before
+	public void setUp() {
 		System.setProperty("webdriver.edge.driver",
-				"C:\\Users\\Arun Kumar S A\\Downloads\\edgedriver_win64\\msedgedriver.exe");
+				"C:\\Users\\Arun Kumar S A\\Downloads\\edgedriver_win64_1\\msedgedriver.exe");
+		edgeDriver = new EdgeDriver();
+	}
 
-		// Instantiate a IEDriver class.
-		final WebDriver edgeDriver = new EdgeDriver();
-
-		// Launch Website
-		edgeDriver.navigate().to("http://www.google.com/");
-
-		// Maximize the browser
+	@Test
+	public void headingText() {
+		edgeDriver.navigate().to("https://phptravels.com/demo/");
 		edgeDriver.manage().window().maximize();
+		final String expectedHeading = "APPLICATION TEST DRIVE";
+		final WebElement webElement = edgeDriver.findElement(By.xpath("//h2[@id='header-title']"));
+		final WebDriverWait wait = new WebDriverWait(edgeDriver, 200);
+		wait.until(ExpectedConditions.visibilityOf(webElement));
+		final String heading = webElement.getText();
+		if (expectedHeading.equalsIgnoreCase(heading)) {
+			System.out.println("The expected heading is same as actual heading ---> " + heading);
+		} else {
+			System.out.println("The expected heading doesn't match the actual heading ---> " + heading);
+		}
+	}
 
-		// Click on the search text box and send value
-		final WebElement searchField = edgeDriver.findElement(By.xpath("//input[@title='Search']"));
-		searchField.sendKeys("test");
-
-		final JavascriptExecutor js = (JavascriptExecutor) edgeDriver;
-		// Click on the search button
-		// driver.findElement(By.name("btnK")).click();
-		js.executeScript("arguments[0].click();", searchField);
+	@After
+	public void tearDown() {
+		edgeDriver.quit();
 	}
 
 }
