@@ -5,11 +5,15 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.StringJoiner;
 import java.util.TimeZone;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.mutable.MutableInt;
 
 import com.automate.wiki.model.TestIterationDetails;
 
@@ -48,6 +52,11 @@ public class WikiAutomatorUtil {
 
 	public static void generateSummaryReport(final List<TestIterationDetails> testIterationDetails) {
 		Collections.sort(testIterationDetails);
+		generateLatestIteraionDetails(testIterationDetails);
+		generatePastIteraionSummary(testIterationDetails);
+	}
+
+	private static void generateLatestIteraionDetails(final List<TestIterationDetails> testIterationDetails) {
 		final TestIterationDetails latIteration = testIterationDetails.get(0);
 		final String iterationWorkspace = StringUtils.remove(StringUtils.substringBetween(
 				latIteration.getTestIterationDescription(), "TestKonzept_Fehlers_", ".xlsx"), "_Linux");
@@ -69,6 +78,30 @@ public class WikiAutomatorUtil {
 		System.out.println("Next iteration number \t\t = " + latIteration.getNextIterationNumber());
 		System.out.println("Next iteration date \t\t = "
 				+ new SimpleDateFormat(ITERATION_TARGET_DATE_FORMAT).format(latIteration.getNextIterationDate()));
+		System.out.println(" ***************************************");
+	}
+
+	private static void generatePastIteraionSummary(final List<TestIterationDetails> testIterationDetails) {
+		System.out.println(" *******************************");
+		System.out.println("*\tPast Iteration Summary \t*");
+		System.out.println(" *******************************");
+		final Map<String, MutableInt> summaryMap = new LinkedHashMap<>();
+		for (final TestIterationDetails iterationDetails : testIterationDetails) {
+			final Date testIterationDate = iterationDetails.getTestIterationDate();
+			final String mapKey = new SimpleDateFormat("MMMM").format(testIterationDate) + "_"
+					+ new SimpleDateFormat("yyyy").format(testIterationDate);
+			if (summaryMap.containsKey(mapKey)) {
+				summaryMap.get(mapKey).increment();
+			} else {
+				summaryMap.put(mapKey, new MutableInt(1));
+			}
+		}
+		for (final Entry<String, MutableInt> summaryMapEntry : summaryMap.entrySet()) {
+			final String[] monthAndYear = summaryMapEntry.getKey().split("_");
+			System.out.println("Number of Test iterations in " + monthAndYear[0] + " " + monthAndYear[1] + "\t= \t"
+					+ summaryMapEntry.getValue());
+		}
+		System.out.println(" ***************************************");
 	}
 
 	public static String getWikiAuthor(final String testIterationDateText) {

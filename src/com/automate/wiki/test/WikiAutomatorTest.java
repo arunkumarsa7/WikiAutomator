@@ -11,6 +11,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -29,8 +30,10 @@ public class WikiAutomatorTest {
 
 	@Before
 	public void setUp() {
+		final EdgeOptions edgeOptions = new EdgeOptions();
+		edgeOptions.addArguments("headless", "disable-gpu");
 		System.setProperty(WEB_DRIVER, WEB_DRIVER_LOCATION);
-		webDriver = new EdgeDriver();
+		webDriver = new EdgeDriver(edgeOptions);
 	}
 
 	@Test
