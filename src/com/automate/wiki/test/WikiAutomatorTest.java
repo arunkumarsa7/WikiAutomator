@@ -1,5 +1,6 @@
 package com.automate.wiki.test;
 
+import java.time.Duration;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,7 +42,7 @@ public class WikiAutomatorTest {
 		webDriver.navigate().to(SOURCE_URL);
 		webDriver.manage().window().maximize();
 		final WebElement webElement = webDriver.findElement(By.xpath("//div[@id='main-header-placeholder']"));
-		final WebDriverWait wait = new WebDriverWait(webDriver, 200);
+		final WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(200));
 		wait.until(ExpectedConditions.visibilityOf(webElement));
 		final String heading = webElement.getText();
 		System.out.println(heading + " loaded...");
