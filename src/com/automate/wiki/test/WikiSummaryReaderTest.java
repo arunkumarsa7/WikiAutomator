@@ -1,8 +1,10 @@
 package com.automate.wiki.test;
 
 import java.time.Duration;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 import org.junit.After;
@@ -17,9 +19,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.automate.wiki.model.TestIterationDetails;
+import com.automate.wiki.util.CalendarUtils;
 import com.automate.wiki.util.WikiAutomatorUtil;
 
-public class WikiAutomatorTest {
+public class WikiSummaryReaderTest {
 
 	private static final String WEB_DRIVER = "webdriver.edge.driver";
 
@@ -38,7 +41,7 @@ public class WikiAutomatorTest {
 	}
 
 	@Test
-	public void headingText() {
+	public void readWikiSummary() {
 		webDriver.navigate().to(SOURCE_URL);
 		webDriver.manage().window().maximize();
 		final WebElement webElement = webDriver.findElement(By.xpath("//div[@id='main-header-placeholder']"));
@@ -59,8 +62,9 @@ public class WikiAutomatorTest {
 	private List<TestIterationDetails> populateTestIterationDetails(final List<WebElement> webElements) {
 		return webElements.stream().map(tempWebElement -> {
 			final Integer testIterationNumber = Integer.parseInt(tempWebElement.getAttribute("id").split("-")[5]);
-			final Date testIterationDate = WikiAutomatorUtil
-					.getTestIterationDate(tempWebElement.findElement(By.xpath("following-sibling::h3[1]")).getText());
+			final Date testIterationDate = CalendarUtils.getTestIterationDate(
+					tempWebElement.findElement(By.xpath("following-sibling::h3[1]")).getText(),
+					TimeZone.getTimeZone("CET"), Calendar.getInstance().getTimeZone());
 			final String testIterationDescription = tempWebElement.findElement(By.xpath("following-sibling::p[1]"))
 					.getText();
 			final String wikiAuthor = WikiAutomatorUtil

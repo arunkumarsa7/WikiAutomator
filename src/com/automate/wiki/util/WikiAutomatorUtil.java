@@ -1,6 +1,5 @@
 package com.automate.wiki.util;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
@@ -15,39 +14,15 @@ import java.util.TimeZone;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.mutable.MutableInt;
 
+import com.automate.wiki.model.LatestTestIterationDetails;
 import com.automate.wiki.model.TestIterationDetails;
 
 public class WikiAutomatorUtil {
-
-	private static final String ITERATION_DATE_FORMAT = "dd.MM.yyyy HH:mm";
 
 	private static final String ITERATION_TARGET_DATE_FORMAT = "dd MMM yyyy EEEE hh:mmaa";
 
 	private WikiAutomatorUtil() {
 
-	}
-
-	public static Date getTestIterationDate(final String testIterationDateText) {
-		final Calendar calendar = Calendar.getInstance();
-		try {
-			final Date iterationDate = new SimpleDateFormat(ITERATION_DATE_FORMAT).parse(StringUtils.normalizeSpace(
-					StringUtils.remove(StringUtils.removeIgnoreCase(testIterationDateText, "Uhr"), "-")));
-			calendar.setTime(iterationDate);
-			final TimeZone fromTimeZone = TimeZone.getTimeZone("CET");
-			final TimeZone toTimeZone = calendar.getTimeZone();
-			calendar.setTimeZone(fromTimeZone);
-			calendar.add(Calendar.MILLISECOND, fromTimeZone.getRawOffset() * -1);
-			if (fromTimeZone.inDaylightTime(calendar.getTime())) {
-				calendar.add(Calendar.MILLISECOND, calendar.getTimeZone().getDSTSavings() * -1);
-			}
-			calendar.add(Calendar.MILLISECOND, toTimeZone.getRawOffset());
-			if (toTimeZone.inDaylightTime(calendar.getTime())) {
-				calendar.add(Calendar.MILLISECOND, toTimeZone.getDSTSavings());
-			}
-		} catch (final ParseException e) {
-			System.err.println(e.getMessage());
-		}
-		return calendar.getTime();
 	}
 
 	public static void generateSummaryReport(final List<TestIterationDetails> testIterationDetails) {
@@ -58,6 +33,7 @@ public class WikiAutomatorUtil {
 
 	private static void generateLatestIteraionDetails(final List<TestIterationDetails> testIterationDetails) {
 		final TestIterationDetails latIteration = testIterationDetails.get(0);
+		LatestTestIterationDetails.testIterationDetails = latIteration;
 		final String iterationWorkspace = StringUtils.remove(StringUtils.substringBetween(
 				latIteration.getTestIterationDescription(), "TestKonzept_Fehlers_", ".xlsx"), "_Linux");
 		System.out.println("\n ***************************************");
@@ -106,6 +82,82 @@ public class WikiAutomatorUtil {
 
 	public static String getWikiAuthor(final String testIterationDateText) {
 		return StringUtils.normalizeSpace(StringUtils.removeIgnoreCase(testIterationDateText, "Von"));
+	}
+
+	public static String generateLatestWikiEntry() {
+		final TestIterationDetails testIterationDetails = LatestTestIterationDetails.getLatestTestIterationDetails();
+		final Date nextIterationDate = CalendarUtils.getTestIterationDate(
+				new SimpleDateFormat("dd.MM.yyy HH:mm").format(Calendar.getInstance().getTime()),
+				Calendar.getInstance().getTimeZone(), TimeZone.getTimeZone("CET"));
+		// @TODO Read these from configuration later
+		final String iterationWorkspace = StringUtils.remove(StringUtils.substringBetween(
+				testIterationDetails.getTestIterationDescription(), "TestKonzept_Fehlers_", ".xlsx"), "_Linux");
+		final boolean isIterationForLinux = true;
+		final boolean isIterationForWindows = true;
+
+		final String HTML_ELEMENT_EM_START = "<em><em>";
+
+		final String HTML_ELEMENT_EM_END = "</em></em>";
+
+		final StringBuilder htmlBuilder = new StringBuilder("arguments[0]");
+		htmlBuilder.append(".insertAdjacentHTML('afterend', '");
+		htmlBuilder.append("<h3 id=\\\"");
+		htmlBuilder.append("Entwicklernews-");
+		htmlBuilder.append(new SimpleDateFormat("dd.MM.yyy-HH:mm").format(nextIterationDate));
+		htmlBuilder.append("Uhr");
+		htmlBuilder.append("\\\">");
+		htmlBuilder.append(HTML_ELEMENT_EM_START);
+		htmlBuilder.append(new SimpleDateFormat("dd.MM.yyy - HH:mm").format(nextIterationDate));
+		htmlBuilder.append("&nbsp; Uhr&nbsp;");
+		htmlBuilder.append(HTML_ELEMENT_EM_END);
+		htmlBuilder.append("</h3>");
+		htmlBuilder.append("<h4 id=\\\"");
+		htmlBuilder.append("Entwicklernews-TestfallfixingEnd-of-Test-Iteration-");
+		htmlBuilder.append(testIterationDetails.getNextIterationNumber());
+		htmlBuilder.append("\\\">");
+		htmlBuilder.append(HTML_ELEMENT_EM_START);
+		htmlBuilder.append("Testfallfixing End-of-Test-Iteration-");
+		htmlBuilder.append(testIterationDetails.getNextIterationNumber());
+		htmlBuilder.append(HTML_ELEMENT_EM_END);
+		htmlBuilder.append("</h4>");
+		htmlBuilder.append("<p class=\\\"diff-block-target\\\">");
+		htmlBuilder.append(HTML_ELEMENT_EM_START);
+		htmlBuilder.append("Die Excelliste zum Testfallfixing befindet sich unter ");
+		if (isIterationForLinux) {
+			htmlBuilder.append(
+					"\\\"P:\\\\\\\\IT-KRAFT\\\\\\\\unsere Dokumente\\\\\\\\ABS\\\\\\\\Einarbeiter\\\\\\\\TestKonzept_Fehlers_");
+			htmlBuilder.append(iterationWorkspace);
+			htmlBuilder.append("_Linux");
+			htmlBuilder.append(".xlsx\\\"");
+			htmlBuilder.append(" mit ");
+			htmlBuilder.append(new SimpleDateFormat("dd-MM-yyy").format(nextIterationDate));
+			htmlBuilder.append(" für ");
+			htmlBuilder.append(iterationWorkspace);
+			htmlBuilder.append(" Linux ");
+		}
+		if (isIterationForWindows) {
+			htmlBuilder.append("und ");
+			htmlBuilder.append(
+					"\\\"P:\\\\\\\\IT-KRAFT\\\\\\\\unsere Dokumente\\\\\\\\ABS\\\\\\\\Einarbeiter\\\\\\\\TestKonzept_Fehlers_");
+			htmlBuilder.append(iterationWorkspace);
+			htmlBuilder.append(".xlsx\\\"");
+			htmlBuilder.append(" mit ");
+			htmlBuilder.append(new SimpleDateFormat("dd-MM-yyy").format(nextIterationDate));
+			htmlBuilder.append("&nbsp;");
+			htmlBuilder.append("für ");
+			htmlBuilder.append(iterationWorkspace);
+			htmlBuilder.append(" Host/Windows.");
+		}
+		htmlBuilder.append("&nbsp;");
+		htmlBuilder.append(HTML_ELEMENT_EM_END);
+		htmlBuilder.append("</p>");
+		htmlBuilder.append("<p class=\\\"diff-block-target\\\">");
+		htmlBuilder.append(HTML_ELEMENT_EM_START);
+		htmlBuilder.append("von AzTech India");
+		htmlBuilder.append(HTML_ELEMENT_EM_END);
+		htmlBuilder.append("</p>");
+		htmlBuilder.append("<hr>');");
+		return htmlBuilder.toString();
 	}
 
 }
