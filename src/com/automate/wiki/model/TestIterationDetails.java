@@ -8,9 +8,9 @@ import java.util.Date;
 
 import org.apache.commons.lang3.time.DateUtils;
 
-public class TestIterationDetails implements Comparable<TestIterationDetails> {
+import com.automate.wiki.helper.ConfigReader;
 
-	private static final String ITERATION_TARGET_DATE_FORMAT = "dd MMM yyyy hh:mmaa";
+public class TestIterationDetails implements Comparable<TestIterationDetails> {
 
 	Integer testIterationNumber;
 
@@ -75,9 +75,11 @@ public class TestIterationDetails implements Comparable<TestIterationDetails> {
 	}
 
 	private Date getNextIterationDate(final Date iterationDate) {
-		return DateUtils.addHours(Date.from(iterationDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
-				.with(TemporalAdjusters.next(DayOfWeek.valueOf("FRIDAY"))).atStartOfDay(ZoneId.systemDefault())
-				.toInstant()), 10);
+		return DateUtils.addHours(
+				Date.from(iterationDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+						.with(TemporalAdjusters.next(DayOfWeek.valueOf(ConfigReader.getOutputTargetDay())))
+						.atStartOfDay(ZoneId.systemDefault()).toInstant()),
+				ConfigReader.getNextIterationDefaultCompletionTime());
 	}
 
 	public String getWikiAuthor() {
@@ -91,10 +93,10 @@ public class TestIterationDetails implements Comparable<TestIterationDetails> {
 	@Override
 	public String toString() {
 		return "TestIterationDetails [testIterationNumber=" + testIterationNumber + ", testIterationDate="
-				+ new SimpleDateFormat(ITERATION_TARGET_DATE_FORMAT).format(testIterationDate) + ", wikiAuthor="
-				+ wikiAuthor + ", testIterationDescription=" + testIterationDescription + ", nextIterationNumber="
-				+ nextIterationNumber + ", nextIterationDate="
-				+ new SimpleDateFormat(ITERATION_TARGET_DATE_FORMAT).format(nextIterationDate) + "]";
+				+ new SimpleDateFormat(ConfigReader.getIterationTargetDateFormat()).format(testIterationDate)
+				+ ", wikiAuthor=" + wikiAuthor + ", testIterationDescription=" + testIterationDescription
+				+ ", nextIterationNumber=" + nextIterationNumber + ", nextIterationDate="
+				+ new SimpleDateFormat(ConfigReader.getIterationTargetDateFormat()).format(nextIterationDate) + "]";
 	}
 
 	@Override
