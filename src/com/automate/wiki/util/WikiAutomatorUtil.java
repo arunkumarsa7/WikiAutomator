@@ -121,8 +121,7 @@ public class WikiAutomatorUtil {
 		htmlBuilder.append(HTML_ELEMENT_EM_START);
 		htmlBuilder.append("Die Excelliste zum Testfallfixing befindet sich unter ");
 		if (isIterationForLinux) {
-			htmlBuilder.append(
-					"\\\"P:\\\\\\\\IT-KRAFT\\\\\\\\unsere Dokumente\\\\\\\\ABS\\\\\\\\Einarbeiter\\\\\\\\TestKonzept_Fehlers_");
+			htmlBuilder.append("\\\"P:\\\\IT-KRAFT\\\\unsere Dokumente\\\\ABS\\\\Einarbeiter\\\\TestKonzept_Fehlers_");
 			htmlBuilder.append(iterationWorkspace);
 			htmlBuilder.append("_Linux");
 			htmlBuilder.append(".xlsx\\\"");
@@ -134,8 +133,7 @@ public class WikiAutomatorUtil {
 		}
 		if (isIterationForWindows) {
 			htmlBuilder.append("und ");
-			htmlBuilder.append(
-					"\\\"P:\\\\\\\\IT-KRAFT\\\\\\\\unsere Dokumente\\\\\\\\ABS\\\\\\\\Einarbeiter\\\\\\\\TestKonzept_Fehlers_");
+			htmlBuilder.append("\\\"P:\\\\IT-KRAFT\\\\unsere Dokumente\\\\ABS\\\\Einarbeiter\\\\TestKonzept_Fehlers_");
 			htmlBuilder.append(iterationWorkspace);
 			htmlBuilder.append(".xlsx\\\"");
 			htmlBuilder.append(" mit ");
@@ -154,6 +152,7 @@ public class WikiAutomatorUtil {
 		htmlBuilder.append(HTML_ELEMENT_EM_END);
 		htmlBuilder.append("</p>");
 		htmlBuilder.append("<hr>');");
+		System.out.println(htmlBuilder.toString());
 		return htmlBuilder.toString();
 	}
 
