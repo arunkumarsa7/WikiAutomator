@@ -14,12 +14,11 @@ import java.util.TimeZone;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.mutable.MutableInt;
 
+import com.automate.wiki.helper.ConfigReader;
 import com.automate.wiki.model.LatestTestIterationDetails;
 import com.automate.wiki.model.TestIterationDetails;
 
 public class WikiAutomatorUtil {
-
-	private static final String ITERATION_TARGET_DATE_FORMAT = "dd MMM yyyy EEEE hh:mmaa";
 
 	private WikiAutomatorUtil() {
 
@@ -40,8 +39,8 @@ public class WikiAutomatorUtil {
 		System.out.println("*\tLatest Iteration Details \t*");
 		System.out.println(" ***************************************");
 		System.out.println("Last iteration number \t\t = " + latIteration.getTestIterationNumber());
-		System.out.println("Last iteration date \t\t = "
-				+ new SimpleDateFormat(ITERATION_TARGET_DATE_FORMAT).format(latIteration.getTestIterationDate()));
+		System.out.println("Last iteration date \t\t = " + new SimpleDateFormat(ConfigReader.getSummaryDateFormat())
+				.format(latIteration.getTestIterationDate()));
 		System.out.println("Last iteration workspace \t = " + iterationWorkspace);
 		final StringJoiner environment = new StringJoiner(" and ");
 		if (StringUtils.containsIgnoreCase(latIteration.getTestIterationDescription(), "Linux")) {
@@ -52,8 +51,8 @@ public class WikiAutomatorUtil {
 		}
 		System.out.println("Last iteration environmet \t = " + environment);
 		System.out.println("Next iteration number \t\t = " + latIteration.getNextIterationNumber());
-		System.out.println("Next iteration date \t\t = "
-				+ new SimpleDateFormat(ITERATION_TARGET_DATE_FORMAT).format(latIteration.getNextIterationDate()));
+		System.out.println("Next iteration date \t\t = " + new SimpleDateFormat(ConfigReader.getSummaryDateFormat())
+				.format(latIteration.getNextIterationDate()));
 		System.out.println(" ***************************************");
 	}
 
@@ -74,7 +73,7 @@ public class WikiAutomatorUtil {
 		}
 		for (final Entry<String, MutableInt> summaryMapEntry : summaryMap.entrySet()) {
 			final String[] monthAndYear = summaryMapEntry.getKey().split("_");
-			System.out.println("Number of Test iterations in " + monthAndYear[0] + " " + monthAndYear[1] + "\t= \t"
+			System.out.println("Number of Test iterations in " + monthAndYear[0] + "\t" + monthAndYear[1] + " = "
 					+ summaryMapEntry.getValue());
 		}
 		System.out.println(" ***************************************");
@@ -87,13 +86,11 @@ public class WikiAutomatorUtil {
 	public static String generateLatestWikiEntry() {
 		final TestIterationDetails testIterationDetails = LatestTestIterationDetails.getLatestTestIterationDetails();
 		final Date nextIterationDate = CalendarUtils.getTestIterationDate(
-				new SimpleDateFormat("dd.MM.yyy HH:mm").format(Calendar.getInstance().getTime()),
-				Calendar.getInstance().getTimeZone(), TimeZone.getTimeZone("CET"));
-		// @TODO Read these from configuration later
-		final String iterationWorkspace = StringUtils.remove(StringUtils.substringBetween(
-				testIterationDetails.getTestIterationDescription(), "TestKonzept_Fehlers_", ".xlsx"), "_Linux");
-		final boolean isIterationForLinux = true;
-		final boolean isIterationForWindows = true;
+				new SimpleDateFormat(ConfigReader.getConversionDateFormat()).format(Calendar.getInstance().getTime()),
+				Calendar.getInstance().getTimeZone(), TimeZone.getTimeZone(ConfigReader.getTargetTimezone()));
+		final String iterationWorkspace = ConfigReader.getIterationWorkspace();
+		final boolean isIterationForLinux = ConfigReader.isIterationDoneLinux();
+		final boolean isIterationForWindows = ConfigReader.isIterationDoneWindows();
 
 		final String HTML_ELEMENT_EM_START = "<em><em>";
 

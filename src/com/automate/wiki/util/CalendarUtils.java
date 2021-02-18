@@ -8,9 +8,9 @@ import java.util.TimeZone;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class CalendarUtils {
+import com.automate.wiki.helper.ConfigReader;
 
-	private static final String ITERATION_DATE_FORMAT = "dd.MM.yyyy HH:mm";
+public class CalendarUtils {
 
 	private CalendarUtils() {
 
@@ -20,8 +20,9 @@ public class CalendarUtils {
 			final TimeZone toTimeZone) {
 		final Calendar calendar = Calendar.getInstance();
 		try {
-			final Date iterationDate = new SimpleDateFormat(ITERATION_DATE_FORMAT).parse(StringUtils.normalizeSpace(
-					StringUtils.remove(StringUtils.removeIgnoreCase(testIterationDateText, "Uhr"), "-")));
+			final Date iterationDate = new SimpleDateFormat(ConfigReader.getConversionDateFormat())
+					.parse(StringUtils.normalizeSpace(
+							StringUtils.remove(StringUtils.removeIgnoreCase(testIterationDateText, "Uhr"), "-")));
 			calendar.setTime(iterationDate);
 			calendar.setTimeZone(fromTimeZone);
 			calendar.add(Calendar.MILLISECOND, fromTimeZone.getRawOffset() * -1);

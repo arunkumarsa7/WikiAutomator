@@ -2,19 +2,31 @@ package com.automate.wiki.helper;
 
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_ENVIRONMENT_PROD;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_CONFIG_FILE_NAME;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_CONVERSION_DATE_FORMAT;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_DESTINATION_FILE_LOCATION;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_DISABLE_GPU;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_ENTRY_ELEMENT_XPATH;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_ENVIRONMENT;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_HEADLESS_MODE;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_ITERATION_AUTHOR_ELEMENT_XPATH;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_ITERATION_DATE_ELEMENT_XPATH;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_ITERATION_DESCRIPTION_ELEMENT_XPATH;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_ITERATION_DONE_FOR_LINUX;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_ITERATION_DONE_FOR_WINDOWS;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_ITERATION_ELEMENT_XPATH;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_ITERATION_TARGET_DATE_FORMAT;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_ITERATION_WORKSPACE;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_NEXT_ITERATION_DEFAULT_COMPLETION_TIME;
-import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_RESOURCES_FILE_NAME;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_PARENT_ELEMENT_XPATH;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_QUIT_WEB_DRIVER_AFTER_EXECUTION;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_RESOURCES_LOCATION;
-import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_SOURCE_FILE_NAME;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_SOURCE_URL;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_SUMMARY_DATE_FORMAT;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_TARGET_DAY;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_TARGET_TIMEZONE;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_WEB_DRIVER;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_WEB_DRIVER_NAME;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_WEB_DRIVER_WAIT;
 
 import java.io.File;
 import java.util.ResourceBundle;
@@ -43,14 +55,6 @@ public class ConfigReader {
 
 	public static String getDestinationLocation() {
 		return appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_DESTINATION_FILE_LOCATION);
-	}
-
-	public static String getSourceFileName() {
-		return appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_SOURCE_FILE_NAME);
-	}
-
-	public static String getResourcesFileName() {
-		return appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_RESOURCES_FILE_NAME);
 	}
 
 	public static String getIterationTargetDateFormat() {
@@ -88,6 +92,63 @@ public class ConfigReader {
 
 	public static boolean isHeadlessMode() {
 		return Boolean.parseBoolean(appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_HEADLESS_MODE));
+	}
+
+	public static int getWebDriverWaitTill() {
+		return Integer.parseInt(appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_WEB_DRIVER_WAIT));
+	}
+
+	public static String getParentElementXPath() {
+		return appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_PARENT_ELEMENT_XPATH);
+	}
+
+	public static String getEntryElementXPath() {
+		return appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_ENTRY_ELEMENT_XPATH);
+	}
+
+	public static String getIterationElementXPath() {
+		return appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_ITERATION_ELEMENT_XPATH);
+	}
+
+	public static String getIterationDateElementXPath() {
+		return appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_ITERATION_DATE_ELEMENT_XPATH);
+	}
+
+	public static String getIterationDescriptionElementXPath() {
+		return appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_ITERATION_DESCRIPTION_ELEMENT_XPATH);
+	}
+
+	public static String getIterationAuthorElementXPath() {
+		return appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_ITERATION_AUTHOR_ELEMENT_XPATH);
+	}
+
+	public static String getTargetTimezone() {
+		return appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_TARGET_TIMEZONE);
+	}
+
+	public static String getConversionDateFormat() {
+		return appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_CONVERSION_DATE_FORMAT);
+	}
+
+	public static String getSummaryDateFormat() {
+		return appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_SUMMARY_DATE_FORMAT);
+	}
+
+	public static String getIterationWorkspace() {
+		return appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_ITERATION_WORKSPACE);
+	}
+
+	public static boolean isIterationDoneLinux() {
+		return Boolean.parseBoolean(appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_ITERATION_DONE_FOR_LINUX));
+	}
+
+	public static boolean isIterationDoneWindows() {
+		return Boolean.parseBoolean(appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_ITERATION_DONE_FOR_WINDOWS));
+	}
+
+	public static boolean isQuitWebDriverAfterExecution() {
+		return Boolean
+				.parseBoolean(appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_QUIT_WEB_DRIVER_AFTER_EXECUTION));
 	}
 
 	public static String getProjectLocation() {
