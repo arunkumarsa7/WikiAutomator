@@ -8,7 +8,6 @@ import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_P
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_RESOURCES_LOCATION;
 
 import java.io.File;
-import java.net.URISyntaxException;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -27,13 +26,8 @@ public class ExternalResourceLoader {
 	private static String externalResourceLocation;
 
 	static {
-		try {
-			final File jarFile = new File(
-					ExternalResourceLoader.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
-			jarFileLocation = jarFile.getParent();
-		} catch (final URISyntaxException e) {
-			System.err.println(e.getMessage());
-		}
+		jarFileLocation = new File(ClassLoader.getSystemClassLoader().getResource(".").getPath()).getAbsolutePath()
+				.replace("%20", " ");
 	}
 
 	private static void loadExternalConfigLocation() {

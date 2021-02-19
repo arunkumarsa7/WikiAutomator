@@ -152,7 +152,6 @@ public class WikiAutomatorUtil {
 		htmlBuilder.append(HTML_ELEMENT_EM_END);
 		htmlBuilder.append("</p>");
 		htmlBuilder.append("<hr>');");
-		System.out.println(htmlBuilder.toString());
 		return htmlBuilder.toString();
 	}
 
