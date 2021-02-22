@@ -12,9 +12,9 @@ public class WikiAutoMatorLauncher {
 
 	public static void main(final String[] args) {
 		try (final Scanner sc = new Scanner(System.in);) {
-			System.out.println("Welcome " + LoggedInUserDetails.getLoggedInUsername() + "!");
+			System.out.println("\nWelcome " + LoggedInUserDetails.getLoggedInUsername() + "!");
 			do {
-				System.out.println("\n ***************************************");
+				System.out.println(" ***************************************");
 				System.out.println("*\tPlease enter your choice!\t*");
 				System.out.println(" ***************************************");
 				System.out.println("* 1 = Show Entiwikler news summary\t*");

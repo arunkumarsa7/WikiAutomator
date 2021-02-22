@@ -66,7 +66,7 @@ public class WikiSummaryReader {
 		for (int i = ConfigReader.getDetailedSummaryReportUptoYear(); i > 0; i--) {
 			final List<WebElement> childElements = webDriver.findElements(By.xpath(
 					"//span[./a[contains(text(), \"News " + latestIterationYear + "\")]]//preceding-sibling::a"));
-			if (childElements != null) {
+			if (childElements != null && !childElements.isEmpty()) {
 				final WebElement childElement = childElements.get(0);
 				childElement.click();
 				for (int currentMonth = 1; currentMonth <= 12; currentMonth++) {

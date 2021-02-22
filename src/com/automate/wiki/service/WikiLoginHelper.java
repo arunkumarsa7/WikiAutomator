@@ -26,7 +26,6 @@ public class WikiLoginHelper {
 					Duration.ofSeconds(ConfigReader.getWebDriverWaitTill()));
 			wait.until(ExpectedConditions.visibilityOf(loginElement));
 			if (loginElement != null) {
-				System.out.println("Login element found...");
 				final WebElement username = webDriver.findElement(By.xpath("//input[@id='os_username']"));
 				final WebElement password = webDriver.findElement(By.xpath("//input[@id='os_password']"));
 				username.clear();
