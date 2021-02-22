@@ -63,7 +63,7 @@ public class WikiSummaryReader {
 				final List<TestIterationDetails> testIterationDetails = populateTestIterationDetails(webElements);
 				Collections.sort(testIterationDetails);
 				WikiAutomatorHelper.generateSummaryReport(testIterationDetails, isPrintWikiSummary);
-				if (isPrintWikiSummary) {
+				if (isPrintWikiSummary && ConfigReader.isgGenerateDetailedSummaryReport()) {
 					readDetailedWikiSummary(testIterationDetails.get(0));
 				}
 			}

@@ -8,6 +8,7 @@ import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_P
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_DISABLE_GPU;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_ENTRY_ELEMENT_XPATH;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_ENVIRONMENT;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_GENERATE_DETAILED_SUMMARY_REPORT;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_HEADLESS_MODE;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_ITERATION_AUTHOR_ELEMENT_XPATH;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_ITERATION_DATE_ELEMENT_XPATH;
@@ -154,6 +155,11 @@ public class ConfigReader {
 
 	public static boolean isIterationDoneWindows() {
 		return Boolean.parseBoolean(appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_ITERATION_DONE_FOR_WINDOWS));
+	}
+
+	public static boolean isgGenerateDetailedSummaryReport() {
+		return Boolean
+				.parseBoolean(appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_GENERATE_DETAILED_SUMMARY_REPORT));
 	}
 
 	public static boolean isQuitWebDriverAfterExecution() {
