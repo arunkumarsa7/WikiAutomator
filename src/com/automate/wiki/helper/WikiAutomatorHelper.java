@@ -2,7 +2,6 @@ package com.automate.wiki.helper;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -26,7 +25,6 @@ public class WikiAutomatorHelper {
 
 	public static void generateSummaryReport(final List<TestIterationDetails> testIterationDetails,
 			final boolean isPrintWikiSummary) {
-		Collections.sort(testIterationDetails);
 		generateLatestIteraionDetails(testIterationDetails, isPrintWikiSummary);
 		if (isPrintWikiSummary) {
 			generatePastIteraionSummary(testIterationDetails);
@@ -214,6 +212,15 @@ public class WikiAutomatorHelper {
 		htmlBuilder.append("</p>");
 		htmlBuilder.append("<hr>');");
 		return htmlBuilder.toString();
+	}
+
+	public static void generateDetailedSummaryReport(final List<TestIterationDetails> childTestIterationDetails) {
+		System.out.println(" ************************************");
+		System.out.println("*\tDetailed Iteration Summary Report \t*");
+		System.out.println(" ************************************");
+		for (final TestIterationDetails iterationDetails : childTestIterationDetails) {
+			System.out.println(iterationDetails);
+		}
 	}
 
 }

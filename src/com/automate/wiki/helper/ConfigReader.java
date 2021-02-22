@@ -4,6 +4,7 @@ import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_E
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_CONFIG_FILE_NAME;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_CONVERSION_DATE_FORMAT;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_DESTINATION_FILE_LOCATION;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_DETAILED_SUMMARY_REPORT_UPTO_YEAR;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_DISABLE_GPU;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_ENTRY_ELEMENT_XPATH;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_ENVIRONMENT;
@@ -101,6 +102,10 @@ public class ConfigReader {
 
 	public static int getWebDriverWaitTill() {
 		return Integer.parseInt(appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_WEB_DRIVER_WAIT));
+	}
+
+	public static int getDetailedSummaryReportUptoYear() {
+		return Integer.parseInt(appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_DETAILED_SUMMARY_REPORT_UPTO_YEAR));
 	}
 
 	public static String getParentElementXPath() {

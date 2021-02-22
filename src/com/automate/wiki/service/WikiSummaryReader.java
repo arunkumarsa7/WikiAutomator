@@ -1,7 +1,11 @@
 package com.automate.wiki.service;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -57,12 +61,46 @@ public class WikiSummaryReader {
 			}
 			if (!webElements.isEmpty()) {
 				final List<TestIterationDetails> testIterationDetails = populateTestIterationDetails(webElements);
+				Collections.sort(testIterationDetails);
 				WikiAutomatorHelper.generateSummaryReport(testIterationDetails, isPrintWikiSummary);
+				if (isPrintWikiSummary) {
+					readDetailedWikiSummary(testIterationDetails.get(0));
+				}
 			}
 		} catch (final WebDriverException e) {
 			System.err.println(e.getMessage());
 		}
 		tearDown();
+	}
+
+	public void readDetailedWikiSummary(final TestIterationDetails testIterationDetails) {
+		final List<TestIterationDetails> childTestIterationDetails = new ArrayList<>();
+		final int latestIterationYear = Integer
+				.parseInt(new SimpleDateFormat("yyyy").format(testIterationDetails.getTestIterationDate()));
+		for (int i = ConfigReader.getDetailedSummaryReportUptoYear(); i > 0; i--) {
+			final List<WebElement> childElements = webDriver.findElements(By.xpath(
+					"//span[./a[contains(text(), \"News " + latestIterationYear + "\")]]//preceding-sibling::a"));
+			if (childElements != null) {
+				final WebElement childElement = childElements.get(0);
+				childElement.click();
+				for (int currentMonth = 1; currentMonth <= 12; currentMonth++) {
+					final WebElement entwiklerElement = childElement
+							.findElement(By.xpath("//span[./a[contains(text(), \"News " + latestIterationYear + "."
+									+ new DecimalFormat("00").format(currentMonth) + "\")]]"));
+					if (entwiklerElement != null) {
+						final List<WebElement> testIterationWebElements = webDriver
+								.findElements(By.xpath(ConfigReader.getIterationElementXPath()));
+						if (testIterationWebElements != null && !testIterationWebElements.isEmpty()) {
+							childTestIterationDetails.addAll(populateTestIterationDetails(testIterationWebElements));
+						}
+					}
+				}
+			}
+		}
+		if (!childTestIterationDetails.isEmpty()) {
+			Collections.sort(childTestIterationDetails);
+			WikiAutomatorHelper.generateDetailedSummaryReport(childTestIterationDetails);
+		}
 	}
 
 	private List<TestIterationDetails> populateTestIterationDetails(final List<WebElement> webElements) {

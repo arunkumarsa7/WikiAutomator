@@ -31,6 +31,7 @@ public class WikiAutomatorConstants {
 	public static final String WIKI_AUTOMATOR_PROPERTY_ITERATION_LINUX_OUT_LOCATION = "automate.wiki.iteration.linux.out.location";
 	public static final String WIKI_AUTOMATOR_PROPERTY_ITERATION_WIKI_DISPLAY_DATE_FORMAT = "automate.wiki.wiki.display.date.format";
 	public static final String WIKI_AUTOMATOR_PROPERTY_ITERATION_WINDOWS_OUT_LOCATION = "automate.wiki.iteration.windows.out.location";
+	public static final String WIKI_AUTOMATOR_PROPERTY_DETAILED_SUMMARY_REPORT_UPTO_YEAR = "automate.wiki.detailed.summary.report.upto.year";
 	public static final String WIKI_AUTOMATOR_PROPERTY_NEXT_ITERATION_DEFAULT_COMPLETION_TIME = "automate.wiki.next.iteration.default.completion.time";
 
 	public static final String WIKI_AUTOMATOR_PROPERTY_ENTRY_ELEMENT_XPATH = "automate.wiki.entry.element";
