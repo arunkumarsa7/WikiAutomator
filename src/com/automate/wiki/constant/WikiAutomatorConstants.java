@@ -26,9 +26,12 @@ public class WikiAutomatorConstants {
 	public static final String WIKI_AUTOMATOR_PROPERTY_CONVERSION_DATE_FORMAT = "automate.wiki.conversion.date.format";
 	public static final String WIKI_AUTOMATOR_PROPERTY_QUIT_WEB_DRIVER_AFTER_EXECUTION = "automate.wiki.web.driver.quit";
 	public static final String WIKI_AUTOMATOR_PROPERTY_ITERATION_DONE_FOR_LINUX = "automate.wiki.iteration.done.for.Linux";
-	public static final String WIKI_AUTOMATOR_PROPERTY_ITERATION_TARGET_DATE_FORMAT = "automate.wiki.iteration.target.date.format";
-	public static final String WIKI_AUTOMATOR_PROPERTY_NEXT_ITERATION_DEFAULT_COMPLETION_TIME = "automate.wiki.next.iteration.default.completion.time";
 	public static final String WIKI_AUTOMATOR_PROPERTY_ITERATION_DONE_FOR_WINDOWS = "automate.wiki.iteration.done.for.windows";
+	public static final String WIKI_AUTOMATOR_PROPERTY_ITERATION_TARGET_DATE_FORMAT = "automate.wiki.iteration.target.date.format";
+	public static final String WIKI_AUTOMATOR_PROPERTY_ITERATION_LINUX_OUT_LOCATION = "automate.wiki.iteration.linux.out.location";
+	public static final String WIKI_AUTOMATOR_PROPERTY_ITERATION_WIKI_DISPLAY_DATE_FORMAT = "automate.wiki.wiki.display.date.format";
+	public static final String WIKI_AUTOMATOR_PROPERTY_ITERATION_WINDOWS_OUT_LOCATION = "automate.wiki.iteration.windows.out.location";
+	public static final String WIKI_AUTOMATOR_PROPERTY_NEXT_ITERATION_DEFAULT_COMPLETION_TIME = "automate.wiki.next.iteration.default.completion.time";
 
 	public static final String WIKI_AUTOMATOR_PROPERTY_ENTRY_ELEMENT_XPATH = "automate.wiki.entry.element";
 	public static final String WIKI_AUTOMATOR_PROPERTY_PARENT_ELEMENT_XPATH = "automate.wiki.parent.element";

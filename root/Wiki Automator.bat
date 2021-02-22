@@ -2,11 +2,11 @@
 REM "Switching to current folder"
 cd /d %~dp0
 
-echo   __  _  _  ___   __  _ _   __  _  _    _  _  ___  __    ___  ___  ___ 
-echo  / _)( )( )(  _) / _)( ) ) (  )( \( )  ( )( )(  _)(  )  (  ,\(  _)(  ,)
-echo ( (_  )__(  ) _)( (_  )  \  )(  )  (    )__(  ) _) )(__  ) _/ ) _) )  \
-echo  \__)(_)(_)(___) \__)(_)\_)(__)(_)\_)  (_)(_)(___)(____)(_)  (___)(_)\_)
-echo   Tool that automates the creation and updation of files for Test Iteration check-in process
+echo  _    _  __  _ _   __     __  _  _  ____  __  __  __   __  ____  __  ___  
+echo ( \/\/ )(  )( ) ) (  )   (  )( )( )(_  _)/  \(  \/  ) (  )(_  _)/  \(  ,) 
+echo  \    /  )(  )  \  )(    /__\ )()(   )( ( () ))    (  /__\  )( ( () ))  \ 
+echo   \/\/  (__)(_)\_)(__)  (_)(_)\__/  (__) \__/(_/\/\_)(_)(_)(__) \__/(_)\_)
+echo	 Tool that automates the creation, updation and summary report generation of Entwikler News
 echo.
 
 SET var=%cd%

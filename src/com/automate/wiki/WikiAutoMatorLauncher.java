@@ -3,6 +3,7 @@ package com.automate.wiki;
 import java.util.Scanner;
 
 import com.automate.wiki.service.WikiModifier;
+import com.automate.wiki.service.WikiModifierVerifier;
 import com.automate.wiki.service.WikiSummaryReader;
 
 public class WikiAutoMatorLauncher {
@@ -11,27 +12,41 @@ public class WikiAutoMatorLauncher {
 		try (final Scanner sc = new Scanner(System.in);) {
 			do {
 				System.out.println("\n ***************************************");
-				System.out.println("| Please enter your choice!\t\t|");
+				System.out.println("*\tPlease enter your choice!\t*");
 				System.out.println(" ***************************************");
-				System.out.println("| Show Entiwikler News Summary\t = 1\t|");
-				System.out.println("| Update Entwikler News\t\t = 2\t|");
-				System.out.println("| Exit\t\t\t\t = 3\t|");
+				System.out.println("* 1 = Show Entiwikler news summary\t*");
+				System.out.println("* 2 = Verify new Entwikler news entry\t*");
+				System.out.println("* 3 = Update Entwikler news\t\t*");
+				System.out.println("* 4 = Exit\t\t\t\t*");
 				System.out.println(" ***************************************");
 				try {
 					final int userInput = Integer.parseInt(sc.nextLine());
 					if (userInput == 1) {
 						final WikiSummaryReader summaryReader = new WikiSummaryReader();
-						summaryReader.readWikiSummary();
+						summaryReader.readWikiSummary(true);
 					} else if (userInput == 2) {
-						final WikiModifier wikiModifier = new WikiModifier();
-						wikiModifier.modifyWikiEntry();
+						final WikiModifierVerifier wikiModifierVerifier = new WikiModifierVerifier();
+						wikiModifierVerifier.verifyWikiEntry();
 					} else if (userInput == 3) {
+						System.out.println("WARNING : Have you verified the details using option 2.");
+						System.out.println("Are you sure you want update Entwikler news ?");
+						System.out.println("1 = Yes");
+						System.out.println("2 = No");
+						final int confirmUserInput = Integer.parseInt(sc.nextLine());
+						if (confirmUserInput == 1) {
+							final WikiModifier wikiModifier = new WikiModifier();
+							wikiModifier.modifyWikiEntry();
+						} else if (confirmUserInput != 2) {
+							throw new NumberFormatException();
+						}
+
+					} else if (userInput == 4) {
 						break;
 					} else {
 						throw new NumberFormatException();
 					}
 				} catch (final NumberFormatException ne) {
-					System.out.println("Invalid input! please enter your choice again.");
+					System.out.println("ERROR : Invalid input! please enter a correct option.");
 				}
 			} while (true);
 			System.exit(999);

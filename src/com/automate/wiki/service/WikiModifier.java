@@ -13,7 +13,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.automate.wiki.helper.ConfigReader;
-import com.automate.wiki.util.WikiAutomatorUtil;
+import com.automate.wiki.helper.WikiAutomatorHelper;
 
 public class WikiModifier {
 
@@ -44,7 +44,7 @@ public class WikiModifier {
 					Duration.ofSeconds(ConfigReader.getWebDriverWaitTill()));
 			wait.until(ExpectedConditions.visibilityOf(webElement));
 			final WebElement searchDiv = webDriver.findElement(By.xpath(ConfigReader.getEntryElementXPath()));
-			javascriptExecutor.executeScript(WikiAutomatorUtil.generateLatestWikiEntry(), searchDiv);
+			javascriptExecutor.executeScript(WikiAutomatorHelper.generateLatestWikiEntryForEdit(), searchDiv);
 		} catch (final WebDriverException e) {
 			System.err.println(e.getMessage());
 		}

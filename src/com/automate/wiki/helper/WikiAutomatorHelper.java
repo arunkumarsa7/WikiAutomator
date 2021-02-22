@@ -1,4 +1,4 @@
-package com.automate.wiki.util;
+package com.automate.wiki.helper;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -14,34 +14,40 @@ import java.util.TimeZone;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.mutable.MutableInt;
 
-import com.automate.wiki.helper.ConfigReader;
 import com.automate.wiki.model.LatestTestIterationDetails;
 import com.automate.wiki.model.TestIterationDetails;
+import com.automate.wiki.util.WikiAutomatorUtils;
 
-public class WikiAutomatorUtil {
+public class WikiAutomatorHelper {
 
-	private WikiAutomatorUtil() {
+	private WikiAutomatorHelper() {
 
 	}
 
-	public static void generateSummaryReport(final List<TestIterationDetails> testIterationDetails) {
+	public static void generateSummaryReport(final List<TestIterationDetails> testIterationDetails,
+			final boolean isPrintWikiSummary) {
 		Collections.sort(testIterationDetails);
-		generateLatestIteraionDetails(testIterationDetails);
-		generatePastIteraionSummary(testIterationDetails);
+		generateLatestIteraionDetails(testIterationDetails, isPrintWikiSummary);
+		if (isPrintWikiSummary) {
+			generatePastIteraionSummary(testIterationDetails);
+		}
 	}
 
-	private static void generateLatestIteraionDetails(final List<TestIterationDetails> testIterationDetails) {
+	private static void generateLatestIteraionDetails(final List<TestIterationDetails> testIterationDetails,
+			final boolean isPrintWikiSummary) {
 		final TestIterationDetails latIteration = testIterationDetails.get(0);
 		LatestTestIterationDetails.testIterationDetails = latIteration;
 		final String iterationWorkspace = StringUtils.remove(StringUtils.substringBetween(
 				latIteration.getTestIterationDescription(), "TestKonzept_Fehlers_", ".xlsx"), "_Linux");
-		System.out.println("\n ***************************************");
-		System.out.println("*\tLatest Iteration Details \t*");
-		System.out.println(" ***************************************");
-		System.out.println("Last iteration number \t\t = " + latIteration.getTestIterationNumber());
-		System.out.println("Last iteration date \t\t = " + new SimpleDateFormat(ConfigReader.getSummaryDateFormat())
-				.format(latIteration.getTestIterationDate()));
-		System.out.println("Last iteration workspace \t = " + iterationWorkspace);
+		if (isPrintWikiSummary) {
+			System.out.println("\n ***************************************");
+			System.out.println("*\tLatest Iteration Details \t*");
+			System.out.println(" ***************************************");
+			System.out.println("Last iteration number \t\t = " + latIteration.getTestIterationNumber());
+			System.out.println("Last iteration date \t\t = " + new SimpleDateFormat(ConfigReader.getSummaryDateFormat())
+					.format(latIteration.getTestIterationDate()));
+			System.out.println("Last iteration workspace \t = " + iterationWorkspace);
+		}
 		final StringJoiner environment = new StringJoiner(" and ");
 		if (StringUtils.containsIgnoreCase(latIteration.getTestIterationDescription(), "Linux")) {
 			environment.add("Linux");
@@ -49,11 +55,13 @@ public class WikiAutomatorUtil {
 		if (StringUtils.containsIgnoreCase(latIteration.getTestIterationDescription(), "Windows")) {
 			environment.add("Windows");
 		}
-		System.out.println("Last iteration environmet \t = " + environment);
-		System.out.println("Next iteration number \t\t = " + latIteration.getNextIterationNumber());
-		System.out.println("Next iteration date \t\t = " + new SimpleDateFormat(ConfigReader.getSummaryDateFormat())
-				.format(latIteration.getNextIterationDate()));
-		System.out.println(" ***************************************");
+		if (isPrintWikiSummary) {
+			System.out.println("Last iteration environmet \t = " + environment);
+			System.out.println("Next iteration number \t\t = " + latIteration.getNextIterationNumber());
+			System.out.println("Next iteration date \t\t = " + new SimpleDateFormat(ConfigReader.getSummaryDateFormat())
+					.format(latIteration.getNextIterationDate()));
+			System.out.println(" ***************************************");
+		}
 	}
 
 	private static void generatePastIteraionSummary(final List<TestIterationDetails> testIterationDetails) {
@@ -83,9 +91,66 @@ public class WikiAutomatorUtil {
 		return StringUtils.normalizeSpace(StringUtils.removeIgnoreCase(testIterationDateText, "Von"));
 	}
 
-	public static String generateLatestWikiEntry() {
-		final TestIterationDetails testIterationDetails = LatestTestIterationDetails.getLatestTestIterationDetails();
-		final Date nextIterationDate = CalendarUtils.getTestIterationDate(
+	public static void main(final String[] args) {
+		generateLatestWikiEntryForDisplay();
+	}
+
+	public static void generateLatestWikiEntryForDisplay() {
+		final TestIterationDetails testIterationDetails = LatestTestIterationDetails
+				.getLatestTestIterationDetails(false);
+		final Date nextIterationDate = WikiAutomatorUtils.getTestIterationDate(
+				new SimpleDateFormat(ConfigReader.getConversionDateFormat()).format(Calendar.getInstance().getTime()),
+				Calendar.getInstance().getTimeZone(), TimeZone.getTimeZone(ConfigReader.getTargetTimezone()));
+		final String iterationWorkspace = ConfigReader.getIterationWorkspace();
+		final boolean isIterationForLinux = ConfigReader.isIterationDoneLinux();
+		final boolean isIterationForWindows = ConfigReader.isIterationDoneWindows();
+		final int iterationNumber = testIterationDetails.getNextIterationNumber();
+		final String iterationDate = new SimpleDateFormat(ConfigReader.getIterationWikiDisplayDateFormat())
+				.format(nextIterationDate) + " Uhr";
+
+		System.out.println(" *************************************** ");
+		System.out.println("*\tLatest Wiki Entry Details \t*");
+		System.out.println(" *************************************** ");
+		System.out.println("Iteration workspace\t = " + iterationWorkspace);
+		System.out.println("Iteration date\t\t = " + iterationDate);
+		System.out.println("Iteration number\t = " + iterationNumber);
+		System.out.println("Iteration in Linux\t = " + isIterationForLinux);
+		System.out.println("Iteration in Windows\t = " + isIterationForWindows);
+
+		final StringBuilder htmlBuilder = new StringBuilder("\n");
+		htmlBuilder.append(iterationDate);
+		htmlBuilder.append("\n\n");
+		htmlBuilder.append("Testfallfixing End-of-Test-Iteration-");
+		htmlBuilder.append(iterationNumber);
+		htmlBuilder.append("\n\n");
+		htmlBuilder.append("Die  Excelliste zum Testfallfixing  befindet sich unter ");
+		if (isIterationForLinux) {
+			htmlBuilder.append(ConfigReader.getIterationLinuxOutLocationForDisplay());
+			htmlBuilder.append(" mit ");
+			htmlBuilder.append(new SimpleDateFormat("dd-MM-yyy").format(nextIterationDate));
+			htmlBuilder.append(" für ");
+			htmlBuilder.append(iterationWorkspace);
+			htmlBuilder.append(" Linux ");
+		}
+		if (isIterationForWindows) {
+			htmlBuilder.append("und ");
+			htmlBuilder.append(ConfigReader.getIterationWindowsOutLocationForDisplay());
+			htmlBuilder.append(" mit ");
+			htmlBuilder.append(new SimpleDateFormat("dd-MM-yyy").format(nextIterationDate));
+			htmlBuilder.append(" für ");
+			htmlBuilder.append(iterationWorkspace);
+			htmlBuilder.append(" Host/Windows.");
+		}
+		htmlBuilder.append("\n\n");
+		htmlBuilder.append("von AzTech India");
+		System.out.println("Entwikler news entry = ");
+		System.out.println(htmlBuilder.toString());
+	}
+
+	public static String generateLatestWikiEntryForEdit() {
+		final TestIterationDetails testIterationDetails = LatestTestIterationDetails
+				.getLatestTestIterationDetails(false);
+		final Date nextIterationDate = WikiAutomatorUtils.getTestIterationDate(
 				new SimpleDateFormat(ConfigReader.getConversionDateFormat()).format(Calendar.getInstance().getTime()),
 				Calendar.getInstance().getTimeZone(), TimeZone.getTimeZone(ConfigReader.getTargetTimezone()));
 		final String iterationWorkspace = ConfigReader.getIterationWorkspace();
@@ -104,7 +169,8 @@ public class WikiAutomatorUtil {
 		htmlBuilder.append("Uhr");
 		htmlBuilder.append("\\\">");
 		htmlBuilder.append(HTML_ELEMENT_EM_START);
-		htmlBuilder.append(new SimpleDateFormat("dd.MM.yyy - HH:mm").format(nextIterationDate));
+		htmlBuilder.append(
+				new SimpleDateFormat(ConfigReader.getIterationWikiDisplayDateFormat()).format(nextIterationDate));
 		htmlBuilder.append("&nbsp; Uhr&nbsp;");
 		htmlBuilder.append(HTML_ELEMENT_EM_END);
 		htmlBuilder.append("</h3>");
@@ -121,10 +187,7 @@ public class WikiAutomatorUtil {
 		htmlBuilder.append(HTML_ELEMENT_EM_START);
 		htmlBuilder.append("Die Excelliste zum Testfallfixing befindet sich unter ");
 		if (isIterationForLinux) {
-			htmlBuilder.append("\\\"P:\\\\IT-KRAFT\\\\unsere Dokumente\\\\ABS\\\\Einarbeiter\\\\TestKonzept_Fehlers_");
-			htmlBuilder.append(iterationWorkspace);
-			htmlBuilder.append("_Linux");
-			htmlBuilder.append(".xlsx\\\"");
+			htmlBuilder.append(ConfigReader.getIterationLinuxOutLocation());
 			htmlBuilder.append(" mit ");
 			htmlBuilder.append(new SimpleDateFormat("dd-MM-yyy").format(nextIterationDate));
 			htmlBuilder.append(" für ");
@@ -133,9 +196,7 @@ public class WikiAutomatorUtil {
 		}
 		if (isIterationForWindows) {
 			htmlBuilder.append("und ");
-			htmlBuilder.append("\\\"P:\\\\IT-KRAFT\\\\unsere Dokumente\\\\ABS\\\\Einarbeiter\\\\TestKonzept_Fehlers_");
-			htmlBuilder.append(iterationWorkspace);
-			htmlBuilder.append(".xlsx\\\"");
+			htmlBuilder.append(ConfigReader.getIterationWindowsOutLocation());
 			htmlBuilder.append(" mit ");
 			htmlBuilder.append(new SimpleDateFormat("dd-MM-yyy").format(nextIterationDate));
 			htmlBuilder.append("&nbsp;");

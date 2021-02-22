@@ -14,7 +14,10 @@ import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_P
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_ITERATION_DONE_FOR_LINUX;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_ITERATION_DONE_FOR_WINDOWS;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_ITERATION_ELEMENT_XPATH;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_ITERATION_LINUX_OUT_LOCATION;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_ITERATION_TARGET_DATE_FORMAT;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_ITERATION_WIKI_DISPLAY_DATE_FORMAT;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_ITERATION_WINDOWS_OUT_LOCATION;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_ITERATION_WORKSPACE;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_NEXT_ITERATION_DEFAULT_COMPLETION_TIME;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_PARENT_ELEMENT_XPATH;
@@ -29,10 +32,12 @@ import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_P
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_WEB_DRIVER_WAIT;
 
 import java.io.File;
+import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 import com.automate.wiki.util.ConfigLoader;
 import com.automate.wiki.util.ExternalResourceLoader;
+import com.automate.wiki.util.WikiAutomatorUtils;
 
 public class ConfigReader {
 
@@ -151,6 +156,36 @@ public class ConfigReader {
 				.parseBoolean(appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_QUIT_WEB_DRIVER_AFTER_EXECUTION));
 	}
 
+	public static String getIterationLinuxOutLocation() {
+		return MessageFormat.format(appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_ITERATION_LINUX_OUT_LOCATION),
+				getIterationWorkspace());
+	}
+
+	public static String getIterationWindowsOutLocation() {
+		return MessageFormat.format(appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_ITERATION_WINDOWS_OUT_LOCATION),
+				getIterationWorkspace());
+	}
+
+	public static String getIterationWindowsOutLocationForDisplay() {
+		String originalLocation = MessageFormat.format(
+				appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_ITERATION_WINDOWS_OUT_LOCATION),
+				getIterationWorkspace());
+		originalLocation = originalLocation.replace("\\\\\\", "\\").replace("\\\\", "\\").substring(1);
+		return WikiAutomatorUtils.replaceLast(originalLocation, "\\", "");
+	}
+
+	public static String getIterationLinuxOutLocationForDisplay() {
+		String originalLocation = MessageFormat.format(
+				appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_ITERATION_LINUX_OUT_LOCATION),
+				getIterationWorkspace());
+		originalLocation = originalLocation.replace("\\\\\\", "\\").replace("\\\\", "\\").substring(1);
+		return WikiAutomatorUtils.replaceLast(originalLocation, "\\", "");
+	}
+
+	public static String getIterationWikiDisplayDateFormat() {
+		return appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_ITERATION_WIKI_DISPLAY_DATE_FORMAT);
+	}
+
 	public static String getProjectLocation() {
 		return System.getProperty("user.dir");
 	}
@@ -165,8 +200,10 @@ public class ConfigReader {
 	}
 
 	public static void main(final String[] args) {
-		System.out.println(getWebDriverLocation());
-		System.out.println(getIterationTargetDateFormat());
+		System.out.println(getIterationWindowsOutLocation());
+		System.out.println(getIterationLinuxOutLocation());
+		System.out.println(getIterationWindowsOutLocationForDisplay());
+		System.out.println(getIterationLinuxOutLocationForDisplay());
 	}
 
 }

@@ -1,7 +1,5 @@
 package com.automate.wiki.model;
 
-import org.junit.runner.JUnitCore;
-
 import com.automate.wiki.service.WikiSummaryReader;
 
 public class LatestTestIterationDetails {
@@ -12,10 +10,10 @@ public class LatestTestIterationDetails {
 
 	}
 
-	public static TestIterationDetails getLatestTestIterationDetails() {
+	public static TestIterationDetails getLatestTestIterationDetails(final boolean isPrintWikiSummary) {
 		if (testIterationDetails == null) {
-			final JUnitCore junit = new JUnitCore();
-			junit.run(WikiSummaryReader.class);
+			final WikiSummaryReader wikiSummaryReader = new WikiSummaryReader();
+			wikiSummaryReader.readWikiSummary(isPrintWikiSummary);
 		}
 		return testIterationDetails;
 	}

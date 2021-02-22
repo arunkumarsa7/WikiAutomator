@@ -17,9 +17,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.automate.wiki.helper.ConfigReader;
+import com.automate.wiki.helper.WikiAutomatorHelper;
 import com.automate.wiki.model.TestIterationDetails;
-import com.automate.wiki.util.CalendarUtils;
-import com.automate.wiki.util.WikiAutomatorUtil;
+import com.automate.wiki.util.WikiAutomatorUtils;
 
 public class WikiSummaryReader {
 
@@ -37,7 +37,7 @@ public class WikiSummaryReader {
 		webDriver = new EdgeDriver(edgeOptions);
 	}
 
-	public void readWikiSummary() {
+	public void readWikiSummary(final boolean isPrintWikiSummary) {
 		setUp();
 		try {
 			webDriver.navigate().to(ConfigReader.getSourceUrl());
@@ -46,14 +46,18 @@ public class WikiSummaryReader {
 			final WebDriverWait wait = new WebDriverWait(webDriver,
 					Duration.ofSeconds(ConfigReader.getWebDriverWaitTill()));
 			wait.until(ExpectedConditions.visibilityOf(webElement));
-			System.out.println(webElement.getText() + " loaded...");
-			System.out.println("Searching Entwicklernews for Test iteration details");
+			if (isPrintWikiSummary) {
+				System.out.println(webElement.getText() + " loaded...");
+				System.out.println("Searching Entwicklernews for Test iteration details");
+			}
 			final List<WebElement> webElements = webDriver
 					.findElements(By.xpath(ConfigReader.getIterationElementXPath()));
-			System.out.println("Found " + webElements.size() + " entries");
+			if (isPrintWikiSummary) {
+				System.out.println("Found " + webElements.size() + " entries");
+			}
 			if (!webElements.isEmpty()) {
 				final List<TestIterationDetails> testIterationDetails = populateTestIterationDetails(webElements);
-				WikiAutomatorUtil.generateSummaryReport(testIterationDetails);
+				WikiAutomatorHelper.generateSummaryReport(testIterationDetails, isPrintWikiSummary);
 			}
 		} catch (final WebDriverException e) {
 			System.err.println(e.getMessage());
@@ -64,12 +68,12 @@ public class WikiSummaryReader {
 	private List<TestIterationDetails> populateTestIterationDetails(final List<WebElement> webElements) {
 		return webElements.stream().map(tempWebElement -> {
 			final Integer testIterationNumber = Integer.parseInt(tempWebElement.getAttribute("id").split("-")[5]);
-			final Date testIterationDate = CalendarUtils.getTestIterationDate(
+			final Date testIterationDate = WikiAutomatorUtils.getTestIterationDate(
 					tempWebElement.findElement(By.xpath(ConfigReader.getIterationDateElementXPath())).getText(),
 					TimeZone.getTimeZone(ConfigReader.getTargetTimezone()), Calendar.getInstance().getTimeZone());
 			final String testIterationDescription = tempWebElement
 					.findElement(By.xpath(ConfigReader.getIterationDescriptionElementXPath())).getText();
-			final String wikiAuthor = WikiAutomatorUtil.getWikiAuthor(
+			final String wikiAuthor = WikiAutomatorHelper.getWikiAuthor(
 					tempWebElement.findElement(By.xpath(ConfigReader.getIterationAuthorElementXPath())).getText());
 			return new TestIterationDetails(testIterationNumber, testIterationDate, testIterationDescription,
 					wikiAuthor);

@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.automate.wiki.util;
 
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_CONFIG_LOCATION;
