@@ -15,35 +15,22 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.automate.wiki.helper.ConfigReader;
+import com.automate.wiki.helper.WebDriverVault;
 import com.automate.wiki.helper.WikiAutomatorHelper;
 import com.automate.wiki.model.TestIterationDetails;
 import com.automate.wiki.util.WikiAutomatorUtils;
 
 public class WikiSummaryReader {
 
-	private WebDriver webDriver;
-
-	private void setUp() {
-		final EdgeOptions edgeOptions = new EdgeOptions();
-		if (ConfigReader.isHeadlessMode()) {
-			edgeOptions.addArguments("headless");
-		}
-		if (ConfigReader.isDisableGPU()) {
-			edgeOptions.addArguments("disable-gpu");
-		}
-		System.setProperty(ConfigReader.getWebDriver(), ConfigReader.getWebDriverLocation());
-		webDriver = new EdgeDriver(edgeOptions);
-	}
+	WebDriver webDriver;
 
 	public void readWikiSummary(final boolean isPrintWikiSummary) {
-		setUp();
 		try {
+			webDriver = WebDriverVault.getWebDriver();
 			webDriver.navigate().to(ConfigReader.getSourceUrl());
 			webDriver.manage().window().maximize();
 			final WebElement webElement = webDriver.findElement(By.xpath(ConfigReader.getParentElementXPath()));
@@ -70,10 +57,9 @@ public class WikiSummaryReader {
 		} catch (final WebDriverException e) {
 			System.err.println(e.getMessage());
 		}
-		tearDown();
 	}
 
-	public void readDetailedWikiSummary(final TestIterationDetails testIterationDetails) {
+	private void readDetailedWikiSummary(final TestIterationDetails testIterationDetails) {
 		final List<TestIterationDetails> childTestIterationDetails = new ArrayList<>();
 		final int latestIterationYear = Integer
 				.parseInt(new SimpleDateFormat("yyyy").format(testIterationDetails.getTestIterationDate()));
@@ -116,12 +102,6 @@ public class WikiSummaryReader {
 			return new TestIterationDetails(testIterationNumber, testIterationDate, testIterationDescription,
 					wikiAuthor);
 		}).collect(Collectors.toList());
-	}
-
-	public void tearDown() {
-		if (ConfigReader.isQuitWebDriverAfterExecution()) {
-			webDriver.quit();
-		}
 	}
 
 }

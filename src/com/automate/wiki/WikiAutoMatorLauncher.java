@@ -2,6 +2,7 @@ package com.automate.wiki;
 
 import java.util.Scanner;
 
+import com.automate.wiki.helper.WebDriverVault;
 import com.automate.wiki.model.LoggedInUserDetails;
 import com.automate.wiki.service.WikiModifier;
 import com.automate.wiki.service.WikiModifierVerifier;
@@ -51,6 +52,7 @@ public class WikiAutoMatorLauncher {
 					System.out.println("ERROR : Invalid input! please enter a correct option.");
 				}
 			} while (true);
+			WebDriverVault.disposeWebDriver();
 			System.exit(999);
 		}
 	}

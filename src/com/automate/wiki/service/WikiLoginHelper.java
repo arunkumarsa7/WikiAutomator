@@ -6,33 +6,18 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.automate.wiki.helper.ConfigReader;
+import com.automate.wiki.helper.WebDriverVault;
 import com.automate.wiki.model.LoggedInUserDetails;
 
 public class WikiLoginHelper {
 
-	private WebDriver webDriver;
-
-	private void setUp() {
-		final EdgeOptions edgeOptions = new EdgeOptions();
-		if (ConfigReader.isHeadlessMode()) {
-			edgeOptions.addArguments("headless");
-		}
-		if (ConfigReader.isDisableGPU()) {
-			edgeOptions.addArguments("disable-gpu");
-		}
-		System.setProperty(ConfigReader.getWebDriver(), ConfigReader.getWebDriverLocation());
-		webDriver = new EdgeDriver(edgeOptions);
-	}
-
 	public void loginToWiki() {
-		setUp();
 		try {
+			final WebDriver webDriver = WebDriverVault.getWebDriver();
 			webDriver.navigate().to(ConfigReader.getSourceUrl());
 			webDriver.manage().window().maximize();
 			final WebElement loginElement = webDriver
@@ -59,13 +44,6 @@ public class WikiLoginHelper {
 			}
 		} catch (final WebDriverException e) {
 			System.err.println(e.getMessage());
-		}
-		tearDown();
-	}
-
-	public void tearDown() {
-		if (ConfigReader.isQuitWebDriverAfterExecution()) {
-			webDriver.quit();
 		}
 	}
 
