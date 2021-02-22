@@ -33,7 +33,7 @@ public class WikiLoginHelper {
 	public void loginToWiki() {
 		setUp();
 		try {
-			webDriver.navigate().to("http://localhost:8080/Login/");
+			webDriver.navigate().to(ConfigReader.getSourceUrl());
 			webDriver.manage().window().maximize();
 			final WebElement loginElement = webDriver
 					.findElement(By.xpath("//form[./h2[contains(text(), \"Log in\")]]"));
