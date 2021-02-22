@@ -23,12 +23,14 @@ import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_P
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_ITERATION_WORKSPACE;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_NEXT_ITERATION_DEFAULT_COMPLETION_TIME;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_PARENT_ELEMENT_XPATH;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_PASSWORD;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_QUIT_WEB_DRIVER_AFTER_EXECUTION;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_RESOURCES_LOCATION;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_SOURCE_URL;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_SUMMARY_DATE_FORMAT;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_TARGET_DAY;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_TARGET_TIMEZONE;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_USERNAME;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_WEB_DRIVER;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_WEB_DRIVER_NAME;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_WEB_DRIVER_WAIT;
@@ -195,6 +197,14 @@ public class ConfigReader {
 
 	public static String getIterationWikiDisplayDateFormat() {
 		return appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_ITERATION_WIKI_DISPLAY_DATE_FORMAT);
+	}
+
+	public static String getWikiUsername() {
+		return appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_USERNAME);
+	}
+
+	public static String getWikiPassword() {
+		return appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_PASSWORD);
 	}
 
 	public static String getProjectLocation() {

@@ -119,7 +119,9 @@ public class WikiSummaryReader {
 	}
 
 	public void tearDown() {
-		webDriver.quit();
+		if (ConfigReader.isQuitWebDriverAfterExecution()) {
+			webDriver.quit();
+		}
 	}
 
 }

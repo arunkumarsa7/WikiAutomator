@@ -9,6 +9,8 @@ public class WikiAutomatorConstants {
 	public static final String WIKI_AUTOMATOR_ENVIRONMENT_PROD = "prod";
 	public static final String WIKI_AUTOMATOR_ENVIRONMENT_DEV = "dev";
 
+	public static final String WIKI_AUTOMATOR_PROPERTY_USERNAME = "automate.wiki.username";
+	public static final String WIKI_AUTOMATOR_PROPERTY_PASSWORD = "automate.wiki.password";
 	public static final String WIKI_AUTOMATOR_PROPERTY_SOURCE_URL = "automate.wiki.source.url";
 	public static final String WIKI_AUTOMATOR_PROPERTY_WEB_DRIVER = "automate.wiki.web.driver";
 	public static final String WIKI_AUTOMATOR_PROPERTY_DISABLE_GPU = "automate.wiki.disable.gpu";

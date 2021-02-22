@@ -2,6 +2,7 @@ package com.automate.wiki;
 
 import java.util.Scanner;
 
+import com.automate.wiki.model.LoggedInUserDetails;
 import com.automate.wiki.service.WikiModifier;
 import com.automate.wiki.service.WikiModifierVerifier;
 import com.automate.wiki.service.WikiSummaryReader;
@@ -10,6 +11,7 @@ public class WikiAutoMatorLauncher {
 
 	public static void main(final String[] args) {
 		try (final Scanner sc = new Scanner(System.in);) {
+			System.out.println("Welcome " + LoggedInUserDetails.getLoggedInUsername() + "!");
 			do {
 				System.out.println("\n ***************************************");
 				System.out.println("*\tPlease enter your choice!\t*");
