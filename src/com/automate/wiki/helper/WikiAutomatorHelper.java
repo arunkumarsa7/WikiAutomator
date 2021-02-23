@@ -1,8 +1,10 @@
 package com.automate.wiki.helper;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -216,12 +218,35 @@ public class WikiAutomatorHelper {
 
 	public static void generateDetailedSummaryReport(final List<TestIterationDetails> childTestIterationDetails) {
 		populateIterationNumberIfEmpty(childTestIterationDetails);
+		final Map<String, List<TestIterationDetails>> detailedIterationSummaryDataMap = new HashMap<>();
 		System.out.println(" ************************************");
 		System.out.println("*\tDetailed Iteration Summary Report \t*");
 		System.out.println(" ************************************");
 		for (final TestIterationDetails iterationDetails : childTestIterationDetails) {
-			System.out.println(iterationDetails);
+			String wikiAuthor = StringUtils.isNotBlank(iterationDetails.getWikiAuthor())
+					? iterationDetails.getWikiAuthor()
+					: "Guest";
+			wikiAuthor = StringUtils.containsIgnoreCase(wikiAuthor, "von")
+					? StringUtils.removeIgnoreCase(wikiAuthor, "von")
+					: wikiAuthor;
+			final String testIterationYear = new SimpleDateFormat("yyy")
+					.format(iterationDetails.getTestIterationDate());
+			final String detailedIterationSummaryMapKey = testIterationYear + "-" + wikiAuthor.trim();
+			if (detailedIterationSummaryDataMap.containsKey(detailedIterationSummaryMapKey)) {
+				detailedIterationSummaryDataMap.get(detailedIterationSummaryMapKey).add(iterationDetails);
+			} else {
+				final List<TestIterationDetails> testIterationDetails = new ArrayList<>();
+				testIterationDetails.add(iterationDetails);
+				detailedIterationSummaryDataMap.put(detailedIterationSummaryMapKey, testIterationDetails);
+			}
 		}
+		for (final Entry<String, List<TestIterationDetails>> iterationDetails : detailedIterationSummaryDataMap
+				.entrySet()) {
+			final String[] keys = iterationDetails.getKey().split("-");
+			System.out.println("Total number of iterations in " + keys[0] + " done by '" + keys[0] + "' = "
+					+ iterationDetails.getValue().size());
+		}
+
 	}
 
 	private static void populateIterationNumberIfEmpty(final List<TestIterationDetails> childTestIterationDetails) {
@@ -231,7 +256,7 @@ public class WikiAutomatorHelper {
 					? iterationDetails.getTestIterationNumber()
 					: testIterationNumber;
 			if (iterationDetails.getTestIterationNumber() == 0) {
-				iterationDetails.setTestIterationNumber(iterationDetails.getTestIterationNumber() + 1);
+				iterationDetails.setTestIterationNumber(testIterationNumber + 1);
 			}
 		}
 	}

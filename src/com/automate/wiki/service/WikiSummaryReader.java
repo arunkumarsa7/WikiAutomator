@@ -105,7 +105,6 @@ public class WikiSummaryReader {
 
 	private List<TestIterationDetails> populateTestIterationDetails(final List<WebElement> webElements) {
 		return webElements.stream().map(tempWebElement -> {
-			System.out.println("Id of the element = " + tempWebElement.getAttribute("id"));
 			final String[] iteratonElementIdFields = tempWebElement.getAttribute("id").split("-");
 			final Integer testIterationNumber = getTestIterationNumber(iteratonElementIdFields, 5);
 			final Integer testIterationSubNumber = getTestIterationNumber(iteratonElementIdFields, 6);
@@ -117,7 +116,7 @@ public class WikiSummaryReader {
 			final String wikiAuthor = WikiAutomatorHelper.getWikiAuthor(
 					tempWebElement.findElement(By.xpath(ConfigReader.getIterationAuthorElementXPath())).getText());
 			return new TestIterationDetails(testIterationNumber, testIterationSubNumber, testIterationDate,
-					testIterationDescription, wikiAuthor);
+					testIterationDescription, StringUtils.isNotBlank(wikiAuthor) ? wikiAuthor.trim() : wikiAuthor);
 		}).collect(Collectors.toList());
 	}
 
