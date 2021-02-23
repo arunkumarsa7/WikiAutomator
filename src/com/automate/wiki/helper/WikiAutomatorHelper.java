@@ -244,7 +244,7 @@ public class WikiAutomatorHelper {
 			final String[] keys = iterationDetails.getKey().split("-");
 			String author = StringUtils.isNotBlank(keys[1]) ? keys[1] : "Guest";
 			author = author.substring(0, Math.min(author.length(), 12));
-			System.out.println("Total number of iterations  done by '" + author + "'\tin " + keys[0] + " = "
+			System.out.println("Total number of iterations  done by '" + author + "' in " + keys[0] + " = "
 					+ iterationDetails.getValue().size());
 		}
 		System.out.println(" ***********************************************");
