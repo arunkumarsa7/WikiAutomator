@@ -31,7 +31,7 @@ public class WikiSummaryReader {
 	public void readWikiSummary(final boolean isPrintWikiSummary) {
 		try {
 			webDriver = WebDriverVault.getWebDriver();
-			webDriver.navigate().to(ConfigReader.getSourceUrl());
+			webDriver.navigate().to("http://localhost:8080/Expanded/");
 			webDriver.manage().window().maximize();
 			final WebElement webElement = webDriver.findElement(By.xpath(ConfigReader.getParentElementXPath()));
 			final WebDriverWait wait = new WebDriverWait(webDriver,
@@ -61,11 +61,11 @@ public class WikiSummaryReader {
 
 	private void readDetailedWikiSummary(final TestIterationDetails testIterationDetails) {
 		final List<TestIterationDetails> childTestIterationDetails = new ArrayList<>();
-		final int latestIterationYear = Integer
+		int latestIterationYear = Integer
 				.parseInt(new SimpleDateFormat("yyyy").format(testIterationDetails.getTestIterationDate()));
 		for (int i = ConfigReader.getDetailedSummaryReportUptoYear(); i > 0; i--) {
 			final List<WebElement> childElements = webDriver.findElements(By.xpath(
-					"//span[./a[contains(text(), \"News " + latestIterationYear + "\")]]//preceding-sibling::a"));
+					"//span[./a[contains(text(), \"News " + (--latestIterationYear) + "\")]]//preceding-sibling::a"));
 			if (childElements != null && !childElements.isEmpty()) {
 				final WebElement childElement = childElements.get(0);
 				childElement.click();

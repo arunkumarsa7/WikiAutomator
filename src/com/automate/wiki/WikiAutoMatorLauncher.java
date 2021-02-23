@@ -2,6 +2,8 @@ package com.automate.wiki;
 
 import java.util.Scanner;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.automate.wiki.helper.WebDriverVault;
 import com.automate.wiki.model.LoggedInUserDetails;
 import com.automate.wiki.service.WikiModifier;
@@ -12,7 +14,9 @@ public class WikiAutoMatorLauncher {
 
 	public static void main(final String[] args) {
 		try (final Scanner sc = new Scanner(System.in);) {
-			System.out.println("\nWelcome " + LoggedInUserDetails.getLoggedInUsername() + "!");
+			System.out.println("\nWelcome " + (StringUtils.isNotBlank(LoggedInUserDetails.getLoggedInUsername())
+					? LoggedInUserDetails.getLoggedInUsername()
+					: "Guest") + "!");
 			do {
 				System.out.println(" ***************************************");
 				System.out.println("*\tPlease enter your choice!\t*");
