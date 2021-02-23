@@ -21,9 +21,9 @@ public class WikiAutoMatorLauncher {
 				System.out.println(" ***************************************");
 				System.out.println("*\tPlease enter your choice!\t*");
 				System.out.println(" ***************************************");
-				System.out.println("* 1 = Show Entiwikler news summary\t*");
-				System.out.println("* 2 = Verify new Entwikler news entry\t*");
-				System.out.println("* 3 = Update Entwikler news\t\t*");
+				System.out.println("* 1 = Show Entiwicklernews summary\t*");
+				System.out.println("* 2 = Verify new Entwicklernews entry\t*");
+				System.out.println("* 3 = Update Entwicklernews\t\t*");
 				System.out.println("* 4 = Exit\t\t\t\t*");
 				System.out.println(" ***************************************");
 				try {
@@ -36,7 +36,7 @@ public class WikiAutoMatorLauncher {
 						wikiModifierVerifier.verifyWikiEntry();
 					} else if (userInput == 3) {
 						System.out.println("WARNING : Have you verified the details using option 2.");
-						System.out.println("Are you sure you want update Entwikler news ?");
+						System.out.println("Are you sure you want update Entwicklernews ?");
 						System.out.println("1 = Yes");
 						System.out.println("2 = No");
 						final int confirmUserInput = Integer.parseInt(sc.nextLine());

@@ -21,7 +21,7 @@ public class WikiAutomatorUtils {
 		final Calendar calendar = Calendar.getInstance();
 		try {
 			final Date iterationDate = new SimpleDateFormat(ConfigReader.getConversionDateFormat())
-					.parse(StringUtils.normalizeSpace(
+					.parse(StringUtils.deleteWhitespace(
 							StringUtils.remove(StringUtils.removeIgnoreCase(testIterationDateText, "Uhr"), "-")));
 			calendar.setTime(iterationDate);
 			calendar.setTimeZone(fromTimeZone);

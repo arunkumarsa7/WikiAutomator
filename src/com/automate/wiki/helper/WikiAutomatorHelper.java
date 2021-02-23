@@ -141,7 +141,7 @@ public class WikiAutomatorHelper {
 		}
 		htmlBuilder.append("\n\n");
 		htmlBuilder.append("von AzTech India");
-		System.out.println("Entwikler news entry = ");
+		System.out.println("Entwicklernews entry = ");
 		System.out.println(htmlBuilder.toString());
 	}
 

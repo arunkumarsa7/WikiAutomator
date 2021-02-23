@@ -12,6 +12,7 @@ import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
@@ -64,24 +65,34 @@ public class WikiSummaryReader {
 		int latestIterationYear = Integer
 				.parseInt(new SimpleDateFormat("yyyy").format(testIterationDetails.getTestIterationDate()));
 		for (int i = ConfigReader.getDetailedSummaryReportUptoYear(); i > 0; i--) {
-			final List<WebElement> childElements = webDriver.findElements(By.xpath(
-					"//span[./a[contains(text(), \"News " + (--latestIterationYear) + "\")]]//preceding-sibling::a"));
-			if (childElements != null && !childElements.isEmpty()) {
-				final WebElement childElement = childElements.get(0);
-				childElement.click();
-				for (int currentMonth = 1; currentMonth <= 12; currentMonth++) {
-					final WebElement entwiklerElement = webDriver
-							.findElement(By.xpath("//span[./a[contains(text(), \"News " + latestIterationYear + "."
-									+ new DecimalFormat("00").format(currentMonth) + "\")]]"));
-					if (entwiklerElement != null) {
-						entwiklerElement.click();
-						final List<WebElement> testIterationWebElements = webDriver
-								.findElements(By.xpath(ConfigReader.getIterationElementXPath()));
-						if (testIterationWebElements != null && !testIterationWebElements.isEmpty()) {
-							childTestIterationDetails.addAll(populateTestIterationDetails(testIterationWebElements));
+			try {
+				final WebElement childElement = webDriver.findElement(By.xpath("//span[./a[contains(text(), \"News "
+						+ (--latestIterationYear) + "\")]]//preceding-sibling::a"));
+				if (childElement != null) {
+					childElement.click();
+					for (int currentMonth = 1; currentMonth <= 12; currentMonth++) {
+						final String elementFinder = latestIterationYear + "."
+								+ new DecimalFormat("00").format(currentMonth);
+						try {
+							final WebElement entwicklerElement = webDriver.findElement(
+									By.xpath("//span[./a[contains(text(), \"News " + elementFinder + "\")]]"));
+							if (entwicklerElement != null) {
+								entwicklerElement.click();
+								final List<WebElement> testIterationWebElements = webDriver
+										.findElements(By.xpath(ConfigReader.getIterationElementXPath()));
+								if (testIterationWebElements != null && !testIterationWebElements.isEmpty()) {
+									childTestIterationDetails
+											.addAll(populateTestIterationDetails(testIterationWebElements));
+								}
+							}
+						} catch (final NoSuchElementException ne) {
+							System.out
+									.println("No entry found for '" + elementFinder + "', searching for next element.");
 						}
 					}
 				}
+			} catch (final NoSuchElementException ne) {
+				System.out.println("No entry found for '" + latestIterationYear + "', searching for next element.");
 			}
 		}
 		if (!childTestIterationDetails.isEmpty()) {
