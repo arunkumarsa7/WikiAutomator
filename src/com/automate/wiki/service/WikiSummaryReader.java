@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.TimeZone;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -106,12 +107,8 @@ public class WikiSummaryReader {
 		return webElements.stream().map(tempWebElement -> {
 			System.out.println("Id of the element = " + tempWebElement.getAttribute("id"));
 			final String[] iteratonElementIdFields = tempWebElement.getAttribute("id").split("-");
-			final Integer testIterationNumber = iteratonElementIdFields.length > 5
-					? Integer.parseInt(iteratonElementIdFields[5])
-					: 0;
-			final Integer testIterationSubNumber = iteratonElementIdFields.length > 6
-					? Integer.parseInt(iteratonElementIdFields[6])
-					: 0;
+			final Integer testIterationNumber = getTestIterationNumber(iteratonElementIdFields, 5);
+			final Integer testIterationSubNumber = getTestIterationNumber(iteratonElementIdFields, 6);
 			final Date testIterationDate = WikiAutomatorUtils.getTestIterationDate(
 					tempWebElement.findElement(By.xpath(ConfigReader.getIterationDateElementXPath())).getText(),
 					TimeZone.getTimeZone(ConfigReader.getTargetTimezone()), Calendar.getInstance().getTimeZone());
@@ -122,6 +119,19 @@ public class WikiSummaryReader {
 			return new TestIterationDetails(testIterationNumber, testIterationSubNumber, testIterationDate,
 					testIterationDescription, wikiAuthor);
 		}).collect(Collectors.toList());
+	}
+
+	private Integer getTestIterationNumber(final String[] iteratonElementIdFields, final int position) {
+		if (iteratonElementIdFields.length > position) {
+			String testIterationFieldValue = iteratonElementIdFields[position];
+			if (StringUtils.isNotBlank(testIterationFieldValue)) {
+				testIterationFieldValue = testIterationFieldValue.replaceAll("[^0-9]", "");
+				if (StringUtils.isNotBlank(testIterationFieldValue)) {
+					return Integer.parseInt(testIterationFieldValue);
+				}
+			}
+		}
+		return 0;
 	}
 
 }
