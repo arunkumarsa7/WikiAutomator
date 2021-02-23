@@ -18,7 +18,7 @@ public class WikiAutoMatorLauncher {
 					? LoggedInUserDetails.getLoggedInUsername()
 					: "Guest") + "!");
 			do {
-				System.out.println(" ***************************************");
+				System.out.println("\n ***************************************");
 				System.out.println("*\tPlease enter your choice!\t*");
 				System.out.println(" ***************************************");
 				System.out.println("* 1 = Show Entiwicklernews summary\t*");

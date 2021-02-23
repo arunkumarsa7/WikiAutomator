@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,7 +65,7 @@ public class WikiAutomatorHelper {
 
 	private static void generatePastIteraionSummary(final List<TestIterationDetails> testIterationDetails) {
 		System.out.println(" *******************************");
-		System.out.println("*\tPast Iteration Summary \t*");
+		System.out.println("*\tRecent Iteration Summary \t*");
 		System.out.println(" *******************************");
 		final Map<String, MutableInt> summaryMap = new LinkedHashMap<>();
 		for (final TestIterationDetails iterationDetails : testIterationDetails) {
@@ -218,10 +217,10 @@ public class WikiAutomatorHelper {
 
 	public static void generateDetailedSummaryReport(final List<TestIterationDetails> childTestIterationDetails) {
 		populateIterationNumberIfEmpty(childTestIterationDetails);
-		final Map<String, List<TestIterationDetails>> detailedIterationSummaryDataMap = new HashMap<>();
-		System.out.println(" ************************************");
+		final Map<String, List<TestIterationDetails>> detailedIterationSummaryDataMap = new LinkedHashMap<>();
+		System.out.println(" ***********************************************");
 		System.out.println("*\tDetailed Iteration Summary Report \t*");
-		System.out.println(" ************************************");
+		System.out.println(" ***********************************************");
 		for (final TestIterationDetails iterationDetails : childTestIterationDetails) {
 			String wikiAuthor = StringUtils.isNotBlank(iterationDetails.getWikiAuthor())
 					? iterationDetails.getWikiAuthor()
@@ -243,7 +242,7 @@ public class WikiAutomatorHelper {
 		for (final Entry<String, List<TestIterationDetails>> iterationDetails : detailedIterationSummaryDataMap
 				.entrySet()) {
 			final String[] keys = iterationDetails.getKey().split("-");
-			System.out.println("Total number of iterations in " + keys[0] + " done by '" + keys[0] + "' = "
+			System.out.println("Total number of iterations  done by '" + keys[1] + "' in " + keys[0] + " = "
 					+ iterationDetails.getValue().size());
 		}
 
