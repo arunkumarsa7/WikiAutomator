@@ -27,8 +27,10 @@ public class WikiModifier {
 			final WebElement editElement = webDriver.findElement(By.xpath("//a[@id='editPageLink']"));
 			editElement.click();
 			final WebElement searchDiv = webDriver.findElement(By.xpath(ConfigReader.getEntryElementXPath()));
-			javascriptExecutor.executeScript(WikiAutomatorHelper.generateLatestWikiEntryForEdit(), searchDiv);
+			final WebDriverWait wait = WebDriverVault.getWebDriverWait();
+			wait.until(ExpectedConditions.visibilityOf(searchDiv));
 
+			javascriptExecutor.executeScript(WikiAutomatorHelper.generateLatestWikiEntryForEdit(), searchDiv);
 			if (ConfigReader.isNotifyEntwicklerNewsWatchers()) {
 				final WebElement notifyWatchersElement = webDriver
 						.findElement(By.xpath("//input[@id='notifyWatchers']"));
