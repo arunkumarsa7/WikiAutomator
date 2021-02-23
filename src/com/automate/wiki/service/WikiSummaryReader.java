@@ -52,7 +52,7 @@ public class WikiSummaryReader {
 				Collections.sort(testIterationDetails);
 				WikiAutomatorHelper.generateSummaryReport(testIterationDetails, isPrintWikiSummary);
 				if (isPrintWikiSummary && ConfigReader.isgGenerateDetailedSummaryReport()) {
-					readDetailedWikiSummary(testIterationDetails.get(0));
+					readDetailedWikiSummary(testIterationDetails);
 				}
 			}
 		} catch (final WebDriverException e) {
@@ -60,10 +60,11 @@ public class WikiSummaryReader {
 		}
 	}
 
-	private void readDetailedWikiSummary(final TestIterationDetails testIterationDetails) {
-		final List<TestIterationDetails> childTestIterationDetails = new ArrayList<>();
+	private void readDetailedWikiSummary(final List<TestIterationDetails> testIterationDetails) {
+		System.out.println("Fetching detailed test iteration details. It will take some time, please be patient!");
+		final List<TestIterationDetails> childTestIterationDetails = new ArrayList<>(testIterationDetails);
 		int latestIterationYear = Integer
-				.parseInt(new SimpleDateFormat("yyyy").format(testIterationDetails.getTestIterationDate()));
+				.parseInt(new SimpleDateFormat("yyyy").format(testIterationDetails.get(0).getTestIterationDate()));
 		for (int i = ConfigReader.getDetailedSummaryReportUptoYear(); i > 0; i--) {
 			try {
 				final WebElement childElement = webDriver.findElement(By.xpath("//span[./a[contains(text(), \"News "
@@ -103,6 +104,7 @@ public class WikiSummaryReader {
 
 	private List<TestIterationDetails> populateTestIterationDetails(final List<WebElement> webElements) {
 		return webElements.stream().map(tempWebElement -> {
+			System.out.println("Id of the element = " + tempWebElement.getAttribute("id"));
 			final String[] iteratonElementIdFields = tempWebElement.getAttribute("id").split("-");
 			final Integer testIterationNumber = Integer
 					.parseInt(iteratonElementIdFields[iteratonElementIdFields.length - 1]);
