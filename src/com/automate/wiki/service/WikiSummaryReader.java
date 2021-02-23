@@ -103,7 +103,9 @@ public class WikiSummaryReader {
 
 	private List<TestIterationDetails> populateTestIterationDetails(final List<WebElement> webElements) {
 		return webElements.stream().map(tempWebElement -> {
-			final Integer testIterationNumber = Integer.parseInt(tempWebElement.getAttribute("id").split("-")[5]);
+			final String[] iteratonElementIdFields = tempWebElement.getAttribute("id").split("-");
+			final Integer testIterationNumber = Integer
+					.parseInt(iteratonElementIdFields[iteratonElementIdFields.length - 1]);
 			final Date testIterationDate = WikiAutomatorUtils.getTestIterationDate(
 					tempWebElement.findElement(By.xpath(ConfigReader.getIterationDateElementXPath())).getText(),
 					TimeZone.getTimeZone(ConfigReader.getTargetTimezone()), Calendar.getInstance().getTimeZone());
