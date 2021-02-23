@@ -70,10 +70,11 @@ public class WikiSummaryReader {
 				final WebElement childElement = childElements.get(0);
 				childElement.click();
 				for (int currentMonth = 1; currentMonth <= 12; currentMonth++) {
-					final WebElement entwiklerElement = childElement
+					final WebElement entwiklerElement = webDriver
 							.findElement(By.xpath("//span[./a[contains(text(), \"News " + latestIterationYear + "."
 									+ new DecimalFormat("00").format(currentMonth) + "\")]]"));
 					if (entwiklerElement != null) {
+						entwiklerElement.click();
 						final List<WebElement> testIterationWebElements = webDriver
 								.findElements(By.xpath(ConfigReader.getIterationElementXPath()));
 						if (testIterationWebElements != null && !testIterationWebElements.isEmpty()) {
