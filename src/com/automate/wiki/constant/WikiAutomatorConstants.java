@@ -25,6 +25,8 @@ public class WikiAutomatorConstants {
 	public static final String WIKI_AUTOMATOR_PROPERTY_TARGET_TIMEZONE = "automate.wiki.output.target.timezone";
 	public static final String WIKI_AUTOMATOR_PROPERTY_SUMMARY_DATE_FORMAT = "automate.wiki.summary.date.format";
 	public static final String WIKI_AUTOMATOR_PROPERTY_ITERATION_WORKSPACE = "automate.wiki.iteration.workspace";
+	public static final String WIKI_AUTOMATOR_PROPERTY_PREVIEW_ENTWICKLER_NEWS = "automate.wiki.preview.entwickler.news";
+	public static final String WIKI_AUTOMATOR_PROPERTY_PUBLISH_ENTWICKLER_NEWS = "automate.wiki.publish.entwickler.news";
 	public static final String WIKI_AUTOMATOR_PROPERTY_CONVERSION_DATE_FORMAT = "automate.wiki.conversion.date.format";
 	public static final String WIKI_AUTOMATOR_PROPERTY_QUIT_WEB_DRIVER_AFTER_EXECUTION = "automate.wiki.web.driver.quit";
 	public static final String WIKI_AUTOMATOR_PROPERTY_ITERATION_DONE_FOR_LINUX = "automate.wiki.iteration.done.for.Linux";
@@ -33,6 +35,7 @@ public class WikiAutomatorConstants {
 	public static final String WIKI_AUTOMATOR_PROPERTY_ITERATION_LINUX_OUT_LOCATION = "automate.wiki.iteration.linux.out.location";
 	public static final String WIKI_AUTOMATOR_PROPERTY_ITERATION_WIKI_DISPLAY_DATE_FORMAT = "automate.wiki.wiki.display.date.format";
 	public static final String WIKI_AUTOMATOR_PROPERTY_ITERATION_WINDOWS_OUT_LOCATION = "automate.wiki.iteration.windows.out.location";
+	public static final String WIKI_AUTOMATOR_PROPERTY_NOTIFY_ENTWICKLER_NEWS_WATCHERS = "automate.wiki.notify.entwickler.news.watchers";
 	public static final String WIKI_AUTOMATOR_PROPERTY_GENERATE_DETAILED_SUMMARY_REPORT = "automate.wiki.generate.detailed.summary.report";
 	public static final String WIKI_AUTOMATOR_PROPERTY_DETAILED_SUMMARY_REPORT_UPTO_YEAR = "automate.wiki.detailed.summary.report.upto.year";
 	public static final String WIKI_AUTOMATOR_PROPERTY_NEXT_ITERATION_DEFAULT_COMPLETION_TIME = "automate.wiki.next.iteration.default.completion.time";

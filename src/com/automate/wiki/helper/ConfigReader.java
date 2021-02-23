@@ -22,8 +22,11 @@ import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_P
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_ITERATION_WINDOWS_OUT_LOCATION;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_ITERATION_WORKSPACE;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_NEXT_ITERATION_DEFAULT_COMPLETION_TIME;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_NOTIFY_ENTWICKLER_NEWS_WATCHERS;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_PARENT_ELEMENT_XPATH;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_PASSWORD;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_PREVIEW_ENTWICKLER_NEWS;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_PUBLISH_ENTWICKLER_NEWS;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_QUIT_WEB_DRIVER_AFTER_EXECUTION;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_RESOURCES_LOCATION;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_SOURCE_URL;
@@ -155,6 +158,14 @@ public class ConfigReader {
 		return Boolean.parseBoolean(appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_ITERATION_DONE_FOR_LINUX));
 	}
 
+	public static boolean isPreviewEntwicklerNews() {
+		return Boolean.parseBoolean(appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_PREVIEW_ENTWICKLER_NEWS));
+	}
+
+	public static boolean isPublishEntwicklerNews() {
+		return Boolean.parseBoolean(appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_PUBLISH_ENTWICKLER_NEWS));
+	}
+
 	public static boolean isIterationDoneWindows() {
 		return Boolean.parseBoolean(appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_ITERATION_DONE_FOR_WINDOWS));
 	}
@@ -167,6 +178,11 @@ public class ConfigReader {
 	public static boolean isQuitWebDriverAfterExecution() {
 		return Boolean
 				.parseBoolean(appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_QUIT_WEB_DRIVER_AFTER_EXECUTION));
+	}
+
+	public static boolean isNotifyEntwicklerNewsWatchers() {
+		return Boolean
+				.parseBoolean(appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_NOTIFY_ENTWICKLER_NEWS_WATCHERS));
 	}
 
 	public static String getIterationLinuxOutLocation() {
@@ -221,10 +237,9 @@ public class ConfigReader {
 	}
 
 	public static void main(final String[] args) {
-		System.out.println(getIterationWindowsOutLocation());
-		System.out.println(getIterationLinuxOutLocation());
-		System.out.println(getIterationWindowsOutLocationForDisplay());
-		System.out.println(getIterationLinuxOutLocationForDisplay());
+		System.out.println(isNotifyEntwicklerNewsWatchers());
+		System.out.println(isPreviewEntwicklerNews());
+		System.out.println(isPublishEntwicklerNews());
 	}
 
 }
