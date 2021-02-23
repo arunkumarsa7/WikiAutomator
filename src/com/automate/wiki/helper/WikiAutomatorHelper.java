@@ -108,7 +108,7 @@ public class WikiAutomatorHelper {
 				.format(nextIterationDate) + " Uhr";
 
 		System.out.println(" *************************************** ");
-		System.out.println("*\tLatest Wiki Entry Details \t*");
+		System.out.println("*\tNext Wiki Entry Details \t*");
 		System.out.println(" *************************************** ");
 		System.out.println("Iteration workspace\t = " + iterationWorkspace);
 		System.out.println("Iteration date\t\t = " + iterationDate);

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project default="BUILD_WIKI_AUTOMATOR_JAR" name="Create Runnable Jar for Project wiki_automator">
+<project default="Zip_And_Copy_Build" name="Create Runnable Jar for Project wiki_automator">
 	<!--this file was created by Eclipse Runnable JAR Export Wizard-->
 	<!--ANT 1.7 is required                                        -->
 	<!--define folder properties-->
@@ -88,13 +88,20 @@
 			<fileset dir="${dir.project}/config" />
 		</copy>
 		<copy todir="${dir.resourcefile.location}" overwrite="true">
-			<fileset dir="${dir.project}/resources" />
+			<fileset dir="${dir.project}/resources">
+				<exclude name="webpages/**" />
+			</fileset>
 		</copy>
 		<copy todir="${dir.build.file.location}" overwrite="true">
-			<fileset dir="${dir.project}/build" />
+			<fileset dir="${dir.project}/build">
+				<exclude name="Wiki Automator.zip" />
+			</fileset>
 		</copy>
 		<copy todir="${dir.build.location}" overwrite="true">
 			<fileset dir="${dir.project}/root" />
 		</copy>
+	</target>
+	<target name="Zip_And_Copy_Build" depends="BUILD_WIKI_AUTOMATOR_JAR">
+		<zip destfile="${dir.project}/build/Wiki Automator.zip" basedir="${dir.build.location}"/>
 	</target>
 </project>

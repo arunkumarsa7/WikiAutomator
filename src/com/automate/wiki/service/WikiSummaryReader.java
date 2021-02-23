@@ -2,7 +2,6 @@ package com.automate.wiki.service;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -30,14 +29,15 @@ public class WikiSummaryReader {
 
 	WebDriver webDriver;
 
+	WebDriverWait wait;
+
 	public void readWikiSummary(final boolean isPrintWikiSummary) {
 		try {
 			webDriver = WebDriverVault.getWebDriver();
 			webDriver.navigate().to(ConfigReader.getSourceUrl());
 			webDriver.manage().window().maximize();
 			final WebElement webElement = webDriver.findElement(By.xpath(ConfigReader.getParentElementXPath()));
-			final WebDriverWait wait = new WebDriverWait(webDriver,
-					Duration.ofSeconds(ConfigReader.getWebDriverWaitTill()));
+			wait = WebDriverVault.getWebDriverWait();
 			wait.until(ExpectedConditions.visibilityOf(webElement));
 			if (isPrintWikiSummary) {
 				System.out.println(webElement.getText() + " loaded...");
@@ -70,6 +70,7 @@ public class WikiSummaryReader {
 			try {
 				final WebElement childElement = webDriver.findElement(By.xpath("//span[./a[contains(text(), \"News "
 						+ (--latestIterationYear) + "\")]]//preceding-sibling::a"));
+				wait.until(ExpectedConditions.visibilityOf(childElement));
 				if (childElement != null) {
 					childElement.click();
 					for (int currentMonth = 1; currentMonth <= 12; currentMonth++) {

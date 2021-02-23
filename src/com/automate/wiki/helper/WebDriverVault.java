@@ -1,12 +1,17 @@
 package com.automate.wiki.helper;
 
+import java.time.Duration;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class WebDriverVault {
 
 	private static WebDriver webDriver;
+
+	private static WebDriverWait wait;
 
 	private WebDriverVault() {
 
@@ -22,6 +27,7 @@ public class WebDriverVault {
 		}
 		System.setProperty(ConfigReader.getWebDriver(), ConfigReader.getWebDriverLocation());
 		webDriver = new EdgeDriver(edgeOptions);
+		wait = new WebDriverWait(webDriver, Duration.ofSeconds(ConfigReader.getWebDriverWaitTill()));
 	}
 
 	private static void tearDown() {
@@ -35,6 +41,13 @@ public class WebDriverVault {
 			setUp();
 		}
 		return webDriver;
+	}
+
+	public static WebDriverWait getWebDriverWait() {
+		if (wait == null) {
+			setUp();
+		}
+		return wait;
 	}
 
 	public static void disposeWebDriver() {
