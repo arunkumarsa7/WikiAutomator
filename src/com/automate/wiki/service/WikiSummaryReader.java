@@ -31,7 +31,7 @@ public class WikiSummaryReader {
 	public void readWikiSummary(final boolean isPrintWikiSummary) {
 		try {
 			webDriver = WebDriverVault.getWebDriver();
-			webDriver.navigate().to("http://localhost:8080/Expanded/");
+			webDriver.navigate().to(ConfigReader.getSourceUrl());
 			webDriver.manage().window().maximize();
 			final WebElement webElement = webDriver.findElement(By.xpath(ConfigReader.getParentElementXPath()));
 			final WebDriverWait wait = new WebDriverWait(webDriver,
