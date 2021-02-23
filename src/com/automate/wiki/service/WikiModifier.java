@@ -28,6 +28,7 @@ public class WikiModifier {
 			wait.until(ExpectedConditions.visibilityOf(webElement));
 			final WebElement searchDiv = webDriver.findElement(By.xpath(ConfigReader.getEntryElementXPath()));
 			javascriptExecutor.executeScript(WikiAutomatorHelper.generateLatestWikiEntryForEdit(), searchDiv);
+			// Need to integrate checkbox on-off code changes and update button change
 		} catch (final WebDriverException e) {
 			System.err.println(e.getMessage());
 		}

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project default="Zip_And_Copy_Build" name="Create Runnable Jar for Project wiki_automator">
+<project default="ZIP_AND_COPY_BUILD" name="Create Runnable Jar for Project wiki_automator">
 	<!--this file was created by Eclipse Runnable JAR Export Wizard-->
 	<!--ANT 1.7 is required                                        -->
 	<!--define folder properties-->
@@ -12,7 +12,10 @@
 	<property name="dir.resourcefile.location" value="${dir.build.location}/resources" />
 	<property name="dir.build.file.location" value="${dir.build.location}/build" />
 	<property name="version" value="1.0" />
-	<target name="BUILD_WIKI_AUTOMATOR_JAR" depends="Copy_Resources_And_Cofig">
+	<target name="ZIP_AND_COPY_BUILD" depends="BUILD_WIKI_AUTOMATOR_JAR">
+		<zip destfile="${dir.project}/build/Wiki Automator.zip" basedir="${dir.build.location}" />
+	</target>
+	<target name="BUILD_WIKI_AUTOMATOR_JAR" depends="COPY_RESOURCES_AND_CONFIG">
 		<jar destfile="${dir.jarfile.location}/wiki-automator.jar">
 			<manifest>
 				<attribute name="Main-Class" value="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader" />
@@ -83,7 +86,7 @@
 			<zipfileset dir="C:/Users/Arun Kumar S A/.m2/repository/commons-io/commons-io/1.3.2" includes="commons-io-1.3.2.jar" />
 		</jar>
 	</target>
-	<target name="Copy_Resources_And_Cofig">
+	<target name="COPY_RESOURCES_AND_CONFIG">
 		<copy todir="${dir.configfile.location}" overwrite="true">
 			<fileset dir="${dir.project}/config" />
 		</copy>
@@ -100,8 +103,5 @@
 		<copy todir="${dir.build.location}" overwrite="true">
 			<fileset dir="${dir.project}/root" />
 		</copy>
-	</target>
-	<target name="Zip_And_Copy_Build" depends="BUILD_WIKI_AUTOMATOR_JAR">
-		<zip destfile="${dir.project}/build/Wiki Automator.zip" basedir="${dir.build.location}"/>
 	</target>
 </project>
