@@ -106,8 +106,12 @@ public class WikiSummaryReader {
 		return webElements.stream().map(tempWebElement -> {
 			System.out.println("Id of the element = " + tempWebElement.getAttribute("id"));
 			final String[] iteratonElementIdFields = tempWebElement.getAttribute("id").split("-");
-			final Integer testIterationNumber = Integer
-					.parseInt(iteratonElementIdFields[iteratonElementIdFields.length - 1]);
+			final Integer testIterationNumber = iteratonElementIdFields.length > 5
+					? Integer.parseInt(iteratonElementIdFields[5])
+					: 0;
+			final Integer testIterationSubNumber = iteratonElementIdFields.length > 6
+					? Integer.parseInt(iteratonElementIdFields[6])
+					: 0;
 			final Date testIterationDate = WikiAutomatorUtils.getTestIterationDate(
 					tempWebElement.findElement(By.xpath(ConfigReader.getIterationDateElementXPath())).getText(),
 					TimeZone.getTimeZone(ConfigReader.getTargetTimezone()), Calendar.getInstance().getTimeZone());
@@ -115,8 +119,8 @@ public class WikiSummaryReader {
 					.findElement(By.xpath(ConfigReader.getIterationDescriptionElementXPath())).getText();
 			final String wikiAuthor = WikiAutomatorHelper.getWikiAuthor(
 					tempWebElement.findElement(By.xpath(ConfigReader.getIterationAuthorElementXPath())).getText());
-			return new TestIterationDetails(testIterationNumber, testIterationDate, testIterationDescription,
-					wikiAuthor);
+			return new TestIterationDetails(testIterationNumber, testIterationSubNumber, testIterationDate,
+					testIterationDescription, wikiAuthor);
 		}).collect(Collectors.toList());
 	}
 

@@ -14,6 +14,8 @@ public class TestIterationDetails implements Comparable<TestIterationDetails> {
 
 	Integer testIterationNumber;
 
+	Integer testIterationSubNumber;
+
 	Date testIterationDate;
 
 	String wikiAuthor;
@@ -24,9 +26,10 @@ public class TestIterationDetails implements Comparable<TestIterationDetails> {
 
 	Date nextIterationDate;
 
-	public TestIterationDetails(final Integer testIterationNumber, final Date testIterationDate,
-			final String testIterationDescription, final String wikiAuthor) {
+	public TestIterationDetails(final Integer testIterationNumber, final Integer testIterationSubNumber,
+			final Date testIterationDate, final String testIterationDescription, final String wikiAuthor) {
 		this.testIterationNumber = testIterationNumber;
+		this.testIterationSubNumber = testIterationSubNumber;
 		this.testIterationDate = testIterationDate;
 		this.testIterationDescription = testIterationDescription;
 		this.wikiAuthor = wikiAuthor;
@@ -90,9 +93,18 @@ public class TestIterationDetails implements Comparable<TestIterationDetails> {
 		this.wikiAuthor = wikiAuthor;
 	}
 
+	public Integer getTestIterationSubNumber() {
+		return testIterationSubNumber;
+	}
+
+	public void setTestIterationSubNumber(final Integer testIterationSubNumber) {
+		this.testIterationSubNumber = testIterationSubNumber;
+	}
+
 	@Override
 	public String toString() {
-		return "TestIterationDetails [testIterationNumber=" + testIterationNumber + ", testIterationDate="
+		return "TestIterationDetails [testIterationNumber=" + testIterationNumber + ", testIterationSubNumber="
+				+ testIterationSubNumber + ", testIterationDate="
 				+ new SimpleDateFormat(ConfigReader.getIterationTargetDateFormat()).format(testIterationDate)
 				+ ", wikiAuthor=" + wikiAuthor + ", testIterationDescription=" + testIterationDescription
 				+ ", nextIterationNumber=" + nextIterationNumber + ", nextIterationDate="
@@ -101,7 +113,7 @@ public class TestIterationDetails implements Comparable<TestIterationDetails> {
 
 	@Override
 	public int compareTo(final TestIterationDetails testIterationDetails) {
-		return testIterationDetails.getTestIterationNumber() - this.testIterationNumber;
+		return testIterationDetails.getTestIterationDate().compareTo(this.testIterationDate);
 	}
 
 	@Override

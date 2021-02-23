@@ -215,11 +215,24 @@ public class WikiAutomatorHelper {
 	}
 
 	public static void generateDetailedSummaryReport(final List<TestIterationDetails> childTestIterationDetails) {
+		populateIterationNumberIfEmpty(childTestIterationDetails);
 		System.out.println(" ************************************");
 		System.out.println("*\tDetailed Iteration Summary Report \t*");
 		System.out.println(" ************************************");
 		for (final TestIterationDetails iterationDetails : childTestIterationDetails) {
 			System.out.println(iterationDetails);
+		}
+	}
+
+	private static void populateIterationNumberIfEmpty(final List<TestIterationDetails> childTestIterationDetails) {
+		Integer testIterationNumber = 0;
+		for (final TestIterationDetails iterationDetails : childTestIterationDetails) {
+			testIterationNumber = iterationDetails.getTestIterationNumber() != 0
+					? iterationDetails.getTestIterationNumber()
+					: testIterationNumber;
+			if (iterationDetails.getTestIterationNumber() == 0) {
+				iterationDetails.setTestIterationNumber(iterationDetails.getTestIterationNumber() + 1);
+			}
 		}
 	}
 
