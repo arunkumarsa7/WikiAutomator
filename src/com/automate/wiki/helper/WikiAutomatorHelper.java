@@ -64,9 +64,9 @@ public class WikiAutomatorHelper {
 	}
 
 	private static void generatePastIteraionSummary(final List<TestIterationDetails> testIterationDetails) {
-		System.out.println(" *******************************");
+		System.out.println(" ***************************************");
 		System.out.println("*\tRecent Iteration Summary \t*");
-		System.out.println(" *******************************");
+		System.out.println(" ***************************************");
 		final Map<String, MutableInt> summaryMap = new LinkedHashMap<>();
 		for (final TestIterationDetails iterationDetails : testIterationDetails) {
 			final Date testIterationDate = iterationDetails.getTestIterationDate();
@@ -242,10 +242,12 @@ public class WikiAutomatorHelper {
 		for (final Entry<String, List<TestIterationDetails>> iterationDetails : detailedIterationSummaryDataMap
 				.entrySet()) {
 			final String[] keys = iterationDetails.getKey().split("-");
-			System.out.println("Total number of iterations  done by '" + keys[1] + "' in " + keys[0] + " = "
+			String author = StringUtils.isNotBlank(keys[1]) ? keys[1] : "Guest";
+			author = author.substring(0, Math.min(author.length(), 12));
+			System.out.println("Total number of iterations  done by '" + author + "'\tin " + keys[0] + " = "
 					+ iterationDetails.getValue().size());
 		}
-
+		System.out.println(" ***********************************************");
 	}
 
 	private static void populateIterationNumberIfEmpty(final List<TestIterationDetails> childTestIterationDetails) {
