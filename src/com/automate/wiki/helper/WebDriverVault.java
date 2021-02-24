@@ -2,9 +2,13 @@ package com.automate.wiki.helper;
 
 import java.time.Duration;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class WebDriverVault {
@@ -36,6 +40,14 @@ public class WebDriverVault {
 		}
 	}
 
+	public static void switchToFrame(final WebElement frameElement) {
+		getWebDriver().switchTo().frame(frameElement);
+	}
+
+	public static void switchToDefault() {
+		getWebDriver().switchTo().defaultContent();
+	}
+
 	public static WebDriver getWebDriver() {
 		if (webDriver == null) {
 			setUp();
@@ -54,6 +66,14 @@ public class WebDriverVault {
 		if (webDriver == null) {
 			tearDown();
 		}
+	}
+
+	public static WebElement waitAndLoadWebElement(final By elementBy) {
+		return getWebDriverWait().until(ExpectedConditions.visibilityOfElementLocated(elementBy));
+	}
+
+	public static JavascriptExecutor getJavascriptExecutor() {
+		return (JavascriptExecutor) getWebDriver();
 	}
 
 }

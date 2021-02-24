@@ -1,13 +1,9 @@
 package com.automate.wiki.service;
 
-import java.time.Duration;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.automate.wiki.helper.ConfigReader;
 import com.automate.wiki.helper.WebDriverVault;
@@ -20,11 +16,8 @@ public class WikiLoginHelper {
 			final WebDriver webDriver = WebDriverVault.getWebDriver();
 			webDriver.navigate().to(ConfigReader.getSourceUrl());
 			webDriver.manage().window().maximize();
-			final WebElement loginElement = webDriver
-					.findElement(By.xpath("//form[./h2[contains(text(), \"Log in\")]]"));
-			final WebDriverWait wait = new WebDriverWait(webDriver,
-					Duration.ofSeconds(ConfigReader.getWebDriverWaitTill()));
-			wait.until(ExpectedConditions.visibilityOf(loginElement));
+			final WebElement loginElement = WebDriverVault
+					.waitAndLoadWebElement(By.xpath("//form[./h2[contains(text(), \"Log in\")]]"));
 			if (loginElement != null) {
 				final WebElement username = webDriver.findElement(By.xpath("//input[@id='os_username']"));
 				final WebElement password = webDriver.findElement(By.xpath("//input[@id='os_password']"));
@@ -35,8 +28,7 @@ public class WikiLoginHelper {
 				webDriver.findElement(By.xpath("//input[@id='loginButton']")).click();
 
 				webDriver.navigate().to(ConfigReader.getSourceUrl());
-				final WebElement webElement = webDriver.findElement(By.xpath(ConfigReader.getParentElementXPath()));
-				wait.until(ExpectedConditions.visibilityOf(webElement));
+				WebDriverVault.waitAndLoadWebElement(By.xpath(ConfigReader.getParentElementXPath()));
 
 				final WebElement loggedInUserName = webDriver.findElement(By.xpath("//a[@id='user-menu-link']"));
 				LoggedInUserDetails.loggedInUsername = loggedInUserName.getAttribute("title");

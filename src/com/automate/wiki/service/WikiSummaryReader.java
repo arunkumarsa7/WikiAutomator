@@ -16,8 +16,6 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.automate.wiki.helper.ConfigReader;
 import com.automate.wiki.helper.WebDriverVault;
@@ -29,16 +27,13 @@ public class WikiSummaryReader {
 
 	WebDriver webDriver;
 
-	WebDriverWait wait;
-
 	public void readWikiSummary(final boolean isPrintWikiSummary) {
 		try {
 			webDriver = WebDriverVault.getWebDriver();
 			webDriver.navigate().to(ConfigReader.getSourceUrl());
 			webDriver.manage().window().maximize();
-			final WebElement webElement = webDriver.findElement(By.xpath(ConfigReader.getParentElementXPath()));
-			wait = WebDriverVault.getWebDriverWait();
-			wait.until(ExpectedConditions.visibilityOf(webElement));
+			final WebElement webElement = WebDriverVault
+					.waitAndLoadWebElement(By.xpath(ConfigReader.getParentElementXPath()));
 			if (isPrintWikiSummary) {
 				System.out.println(webElement.getText() + " loaded...");
 				System.out.println("Searching Entwicklernews for Test iteration details");
@@ -68,9 +63,9 @@ public class WikiSummaryReader {
 				.parseInt(new SimpleDateFormat("yyyy").format(testIterationDetails.get(0).getTestIterationDate()));
 		for (int i = ConfigReader.getDetailedSummaryReportUptoYear(); i > 0; i--) {
 			try {
-				final WebElement childElement = webDriver.findElement(By.xpath("//span[./a[contains(text(), \"News "
-						+ (--latestIterationYear) + "\")]]//preceding-sibling::a"));
-				wait.until(ExpectedConditions.visibilityOf(childElement));
+				final WebElement childElement = WebDriverVault
+						.waitAndLoadWebElement(By.xpath("//span[./a[contains(text(), \"News " + (--latestIterationYear)
+								+ "\")]]//preceding-sibling::a"));
 				if (childElement != null) {
 					childElement.click();
 					for (int currentMonth = 1; currentMonth <= 12; currentMonth++) {
