@@ -8,7 +8,6 @@ import org.openqa.selenium.WebElement;
 
 import com.automate.wiki.helper.ConfigReader;
 import com.automate.wiki.helper.WebDriverVault;
-import com.automate.wiki.helper.WikiAutomatorHelper;
 
 public class WikiModifier {
 
@@ -20,13 +19,13 @@ public class WikiModifier {
 
 			final WebDriver webDriver = WebDriverVault.getWebDriver();
 			WebDriverVault.switchToFrame(webDriver.findElement(By.id("wysiwygTextarea_ifr")));
-			final WebElement entryElement = WebDriverVault
-					.waitAndLoadWebElement(By.xpath(ConfigReader.getEntryElementXPath()));
-			WebDriverVault.getJavascriptExecutor().executeScript(WikiAutomatorHelper.generateLatestWikiEntryForEdit(),
-					entryElement);
-			System.out.println("seems ok till now!");
-			WebDriverVault.switchToDefault();
-			System.out.println("Able to see me?");
+//			final WebElement entryElement = WebDriverVault
+//					.waitAndLoadWebElement(By.xpath(ConfigReader.getEntryElementXPath()));
+//			WebDriverVault.getJavascriptExecutor().executeScript(WikiAutomatorHelper.generateLatestWikiEntryForEdit(),
+//					entryElement);
+//			System.out.println("seems ok till now!");
+//			WebDriverVault.switchToDefault();
+//			System.out.println("Able to see me?");
 //			if (ConfigReader.isNotifyEntwicklerNewsWatchers()) {
 //				final WebElement notifyWatchersElement = webDriver
 //						.findElement(By.xpath("//input[@id='notifyWatchers']"));
