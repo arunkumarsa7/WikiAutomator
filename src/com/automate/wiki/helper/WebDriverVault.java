@@ -76,4 +76,10 @@ public class WebDriverVault {
 		return (JavascriptExecutor) getWebDriver();
 	}
 
+	public static void navigateAndMaximize(final String sourceUrl) {
+		final WebDriver webDriver = getWebDriver();
+		webDriver.navigate().to(sourceUrl);
+		webDriver.manage().window().maximize();
+	}
+
 }
