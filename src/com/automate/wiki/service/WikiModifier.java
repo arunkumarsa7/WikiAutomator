@@ -32,8 +32,8 @@ public class WikiModifier {
 			WebDriverVault.getJavascriptExecutor().executeScript(WikiAutomatorHelper.generateLatestWikiEntryForEdit(),
 					entryElement);
 			System.out.println("seems ok till now! Java script executed...");
-//			WebDriverVault.switchToDefault();
-//			System.out.println("Able to see me?");
+			WebDriverVault.switchToDefault();
+			System.out.println("Able to see me?");
 //			if (ConfigReader.isNotifyEntwicklerNewsWatchers()) {
 //				final WebElement notifyWatchersElement = webDriver
 //						.findElement(By.xpath("//input[@id='notifyWatchers']"));

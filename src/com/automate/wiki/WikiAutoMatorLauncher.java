@@ -20,14 +20,14 @@ public class WikiAutoMatorLauncher {
 					? LoggedInUserDetails.getLoggedInUsername()
 					: "Guest") + "!");
 			do {
-				System.out.println("\n ***************************************");
-				System.out.println("*\tPlease enter your choice!\t*");
-				System.out.println(" ***************************************");
-				System.out.println("* 1 = Show Entiwicklernews summary\t*");
-				System.out.println("* 2 = Verify new Entwicklernews entry\t*");
-				System.out.println("* 3 = Update Entwicklernews\t\t*");
-				System.out.println("* 4 = Exit\t\t\t\t*");
-				System.out.println(" ***************************************");
+				System.out.println("\n ****************************************");
+				System.out.println(" *\tPlease enter your choice!\t*");
+				System.out.println(" ****************************************");
+				System.out.println(" * 1 = Show Entiwicklernews summary\t*");
+				System.out.println(" * 2 = Verify new Entwicklernews entry\t*");
+				System.out.println(" * 3 = Update Entwicklernews\t\t*");
+				System.out.println(" * 4 = Exit\t\t\t\t*");
+				System.out.println(" ****************************************");
 				try {
 					final int userInput = Integer.parseInt(sc.nextLine());
 					if (userInput == 1) {
