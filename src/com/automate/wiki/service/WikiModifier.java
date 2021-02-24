@@ -18,15 +18,16 @@ public class WikiModifier {
 			webDriver.navigate().to(ConfigReader.getSourceUrl());
 			webDriver.manage().window().maximize();
 			WebDriverVault.waitAndLoadWebElement(By.xpath(ConfigReader.getParentElementXPath()));
-
 			final WebElement editElement = webDriver.findElement(By.xpath("//a[@id='editPageLink']"));
 			editElement.click();
-			WebDriverVault.switchToFrame(webDriver.findElement(By.id("wysiwygTextarea_ifr")));
 
+			WebDriverVault.switchToFrame(webDriver.findElement(By.id("wysiwygTextarea_ifr")));
 			final WebElement searchDiv = WebDriverVault
 					.waitAndLoadWebElement(By.xpath(ConfigReader.getEntryElementXPath()));
 			WebDriverVault.getJavascriptExecutor().executeScript(WikiAutomatorHelper.generateLatestWikiEntryForEdit(),
 					searchDiv);
+			WebDriverVault.switchToDefault();
+
 			if (ConfigReader.isNotifyEntwicklerNewsWatchers()) {
 				final WebElement notifyWatchersElement = webDriver
 						.findElement(By.xpath("//input[@id='notifyWatchers']"));
@@ -47,7 +48,6 @@ public class WikiModifier {
 						.findElement(By.xpath("//button[@id='rte-button-publish']"));
 				publishButtonElement.click();
 			}
-			WebDriverVault.switchToDefault();
 		} catch (final NoSuchElementException ne) {
 			System.out.println(ne.getMessage());
 		} catch (final WebDriverException we) {
