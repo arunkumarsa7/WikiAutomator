@@ -1,31 +1,39 @@
 package com.automate.wiki.service;
 
+import java.time.Duration;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.automate.wiki.helper.ConfigReader;
 import com.automate.wiki.helper.WebDriverVault;
+import com.automate.wiki.helper.WikiAutomatorHelper;
 
 public class WikiModifier {
 
+	WebDriver webDriver;
+
+	JavascriptExecutor javascriptExecutor;
+
 	public void modifyWikiEntry() {
 		try {
-			WebDriverVault.navigateAndMaximize(ConfigReader.getSourceUrl());
-			final WebElement editElement = WebDriverVault.waitAndLoadWebElement(By.xpath("//a[@id='editPageLink']"));
+			getWebDriverAndLoadPage();
+			final WebElement editElement = webDriver.findElement(By.xpath("//a[@id='editPageLink']"));
 			editElement.click();
 
-			final WebDriver webDriver = WebDriverVault.getWebDriver();
-			WebDriverVault.switchToFrame(webDriver.findElement(By.id("wysiwygTextarea_ifr")));
-//			final WebElement entryElement = WebDriverVault
-//					.waitAndLoadWebElement(By.xpath(ConfigReader.getEntryElementXPath()));
-//			WebDriverVault.getJavascriptExecutor().executeScript(WikiAutomatorHelper.generateLatestWikiEntryForEdit(),
-//					entryElement);
-//			System.out.println("seems ok till now!");
-//			WebDriverVault.switchToDefault();
-//			System.out.println("Able to see me?");
+			// This way allows you to select an iframe using 'By' and access it.
+			webDriver.switchTo().frame(webDriver.findElement(By.id("wysiwygTextarea_ifr")));
+
+			final WebElement searchDiv = webDriver.findElement(By.xpath(ConfigReader.getEntryElementXPath()));
+			final WebDriverWait wait = WebDriverVault.getWebDriverWait();
+			wait.until(ExpectedConditions.visibilityOf(searchDiv));
+			javascriptExecutor.executeScript(WikiAutomatorHelper.generateLatestWikiEntryForEdit(), searchDiv);
 //			if (ConfigReader.isNotifyEntwicklerNewsWatchers()) {
 //				final WebElement notifyWatchersElement = webDriver
 //						.findElement(By.xpath("//input[@id='notifyWatchers']"));
@@ -46,11 +54,25 @@ public class WikiModifier {
 //						.findElement(By.xpath("//button[@id='rte-button-publish']"));
 //				publishButtonElement.click();
 //			}
+//			// After execute all that you need inside the iframe,
+//			// returns you to default html, outside the iframe.
+//			webDriver.switchTo().defaultContent();
 		} catch (final NoSuchElementException ne) {
 			System.out.println(ne.getMessage());
 		} catch (final WebDriverException we) {
 			System.err.println(we.getMessage());
 		}
+	}
+
+	private void getWebDriverAndLoadPage() {
+		webDriver = WebDriverVault.getWebDriver();
+		webDriver.navigate().to(ConfigReader.getSourceUrl());
+		webDriver.manage().window().maximize();
+		final WebElement webElement = webDriver.findElement(By.xpath(ConfigReader.getParentElementXPath()));
+		final WebDriverWait wait = new WebDriverWait(webDriver,
+				Duration.ofSeconds(ConfigReader.getWebDriverWaitTill()));
+		wait.until(ExpectedConditions.visibilityOf(webElement));
+		javascriptExecutor = (JavascriptExecutor) webDriver;
 	}
 
 }
