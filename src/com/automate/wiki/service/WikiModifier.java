@@ -38,7 +38,7 @@ public class WikiModifier {
 						.findElement(By.xpath("//button[@id='rte-button-ellipsis']"));
 				ellipsisButtonElement.click();
 				final WebElement previewButtonElement = webDriver
-						.findElement(By.xpath("//button[@id='rte-button-preview']"));
+						.findElement(By.xpath("//a[@id='rte-button-preview']"));
 				previewButtonElement.click();
 			}
 			if (ConfigReader.isPublishEntwicklerNews()) {
