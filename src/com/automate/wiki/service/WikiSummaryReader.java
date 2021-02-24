@@ -27,7 +27,7 @@ public class WikiSummaryReader {
 
 	WebDriver webDriver;
 
-	public void readWikiSummary(final boolean isPrintWikiSummary) {
+	public void readWikiSummary(final boolean isReadDetailedWikiSummary, final boolean isPrintWikiSummary) {
 		try {
 			webDriver = WebDriverVault.getWebDriver();
 			webDriver.navigate().to(ConfigReader.getSourceUrl());
@@ -47,7 +47,7 @@ public class WikiSummaryReader {
 				final List<TestIterationDetails> testIterationDetails = populateTestIterationDetails(webElements);
 				Collections.sort(testIterationDetails);
 				WikiAutomatorHelper.generateSummaryReport(testIterationDetails, isPrintWikiSummary);
-				if (isPrintWikiSummary && ConfigReader.isgGenerateDetailedSummaryReport()) {
+				if (isPrintWikiSummary && isReadDetailedWikiSummary) {
 					readDetailedWikiSummary(testIterationDetails);
 				}
 			}

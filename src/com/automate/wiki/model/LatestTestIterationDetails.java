@@ -13,7 +13,7 @@ public class LatestTestIterationDetails {
 	public static TestIterationDetails getLatestTestIterationDetails(final boolean isPrintWikiSummary) {
 		if (testIterationDetails == null) {
 			final WikiSummaryReader wikiSummaryReader = new WikiSummaryReader();
-			wikiSummaryReader.readWikiSummary(isPrintWikiSummary);
+			wikiSummaryReader.readWikiSummary(false, isPrintWikiSummary);
 		}
 		return testIterationDetails;
 	}

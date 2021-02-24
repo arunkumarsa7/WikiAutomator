@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.automate.wiki.helper.ConfigReader;
 import com.automate.wiki.helper.WebDriverVault;
 import com.automate.wiki.model.LoggedInUserDetails;
 import com.automate.wiki.service.WikiModifier;
@@ -13,6 +14,7 @@ import com.automate.wiki.service.WikiSummaryReader;
 public class WikiAutoMatorLauncher {
 
 	public static void main(final String[] args) {
+		System.out.println("Loading...");
 		try (final Scanner sc = new Scanner(System.in);) {
 			System.out.println("\nWelcome " + (StringUtils.isNotBlank(LoggedInUserDetails.getLoggedInUsername())
 					? LoggedInUserDetails.getLoggedInUsername()
@@ -30,7 +32,7 @@ public class WikiAutoMatorLauncher {
 					final int userInput = Integer.parseInt(sc.nextLine());
 					if (userInput == 1) {
 						final WikiSummaryReader summaryReader = new WikiSummaryReader();
-						summaryReader.readWikiSummary(true);
+						summaryReader.readWikiSummary(ConfigReader.isgGenerateDetailedSummaryReport(), true);
 					} else if (userInput == 2) {
 						final WikiModifierVerifier wikiModifierVerifier = new WikiModifierVerifier();
 						wikiModifierVerifier.verifyWikiEntry();
