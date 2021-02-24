@@ -14,20 +14,24 @@ public class WikiModifier {
 
 	public void modifyWikiEntry() {
 		try {
+			System.out.println("Calling summary before edit");
 			final WikiSummaryReader summaryReader = new WikiSummaryReader();
 			summaryReader.readWikiSummary(false, false);
-
+			System.out.println("Finding edit");
 			WebDriverVault.navigateAndMaximize(ConfigReader.getSourceUrl());
 			final WebElement editElement = WebDriverVault.waitAndLoadWebElement(By.xpath("//a[@id='editPageLink']"));
 			editElement.click();
-
+			System.out.println("Edit clicked");
 			final WebDriver webDriver = WebDriverVault.getWebDriver();
+			System.out.println("Switching to iframe");
 			WebDriverVault.switchToFrame(webDriver.findElement(By.id("wysiwygTextarea_ifr")));
+			System.out.println("Switched");
 			final WebElement entryElement = WebDriverVault
 					.waitAndLoadWebElement(By.xpath(ConfigReader.getEntryElementXPath()));
+			System.out.println("Entry element found");
 			WebDriverVault.getJavascriptExecutor().executeScript(WikiAutomatorHelper.generateLatestWikiEntryForEdit(),
 					entryElement);
-			System.out.println("seems ok till now!");
+			System.out.println("seems ok till now! Java script executed...");
 //			WebDriverVault.switchToDefault();
 //			System.out.println("Able to see me?");
 //			if (ConfigReader.isNotifyEntwicklerNewsWatchers()) {
