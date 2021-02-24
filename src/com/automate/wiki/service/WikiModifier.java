@@ -20,8 +20,10 @@ public class WikiModifier {
 
 			final WebDriver webDriver = WebDriverVault.getWebDriver();
 			WebDriverVault.switchToFrame(webDriver.findElement(By.id("wysiwygTextarea_ifr")));
+			final WebElement entryElement = WebDriverVault
+					.waitAndLoadWebElement(By.xpath(ConfigReader.getEntryElementXPath()));
 			WebDriverVault.getJavascriptExecutor().executeScript(WikiAutomatorHelper.generateLatestWikiEntryForEdit(),
-					WebDriverVault.waitAndLoadWebElement(By.xpath(ConfigReader.getEntryElementXPath())));
+					entryElement);
 			System.out.println("seems ok till now!");
 			WebDriverVault.switchToDefault();
 			System.out.println("Able to see me?");
