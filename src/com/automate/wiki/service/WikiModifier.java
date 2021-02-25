@@ -23,12 +23,13 @@ public class WikiModifier {
 			final WebDriver webDriver = WebDriverVault.getWebDriver();
 			WebDriverVault.switchToFrame(webDriver.findElement(By.id("wysiwygTextarea_ifr")));
 			WebDriverVault.waitAndLoadWebElement(By.xpath(ConfigReader.getEntryElementXPath()));
-
-			WebDriverVault.getJavascriptExecutor().executeScript(
+			System.out.println("Printing -> ");
+			System.out.println(
 					"document.getElementsByClassName('wrapped confluenceTable')[2].insertAdjacentHTML('afterend','"
 							+ WikiAutomatorHelper.generateLatestWikiEntryForEdit() + "')");
-//			WebDriverVault.getJavascriptExecutor().executeScript(WikiAutomatorHelper.generateLatestWikiEntryForEdit(),
-//					entryElement);
+//			WebDriverVault.getJavascriptExecutor().executeScript(
+//					"document.getElementsByClassName('wrapped confluenceTable')[2].insertAdjacentHTML('afterend','"
+//							+ WikiAutomatorHelper.generateLatestWikiEntryForEdit() + "')");
 			WebDriverVault.switchToDefault();
 			if (ConfigReader.isNotifyEntwicklerNewsWatchers()) {
 				final WebElement notifyWatchersElement = webDriver
