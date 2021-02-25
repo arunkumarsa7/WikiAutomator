@@ -14,6 +14,7 @@ public class WikiModifier {
 
 	public void modifyWikiEntry() {
 		try {
+			System.out.println("Updating Entwicklernews");
 			final WikiSummaryReader summaryReader = new WikiSummaryReader();
 			summaryReader.readWikiSummary(false, false);
 			WebDriverVault.navigateAndMaximize(ConfigReader.getSourceUrl());
@@ -21,10 +22,13 @@ public class WikiModifier {
 			editElement.click();
 			final WebDriver webDriver = WebDriverVault.getWebDriver();
 			WebDriverVault.switchToFrame(webDriver.findElement(By.id("wysiwygTextarea_ifr")));
-			final WebElement entryElement = WebDriverVault
-					.waitAndLoadWebElement(By.xpath(ConfigReader.getEntryElementXPath()));
-			WebDriverVault.getJavascriptExecutor().executeScript(WikiAutomatorHelper.generateLatestWikiEntryForEdit(),
-					entryElement);
+			WebDriverVault.waitAndLoadWebElement(By.xpath(ConfigReader.getEntryElementXPath()));
+
+			WebDriverVault.getJavascriptExecutor().executeScript(
+					"document.getElementsByClassName('wrapped confluenceTable')[2].insertAdjacentHTML('afterend','"
+							+ WikiAutomatorHelper.generateLatestWikiEntryForEdit() + "')");
+//			WebDriverVault.getJavascriptExecutor().executeScript(WikiAutomatorHelper.generateLatestWikiEntryForEdit(),
+//					entryElement);
 			WebDriverVault.switchToDefault();
 			if (ConfigReader.isNotifyEntwicklerNewsWatchers()) {
 				final WebElement notifyWatchersElement = webDriver
@@ -46,6 +50,7 @@ public class WikiModifier {
 						.findElement(By.xpath("//button[@id='rte-button-publish']"));
 				publishButtonElement.click();
 			}
+			System.out.println("Entwicklernews updated successfully");
 		} catch (final NoSuchElementException ne) {
 			System.out.println(ne.getMessage());
 		} catch (final WebDriverException we) {
