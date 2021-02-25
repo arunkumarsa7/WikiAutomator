@@ -6,9 +6,9 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.automate.wiki.helper.ConfigReader;
 import com.automate.wiki.helper.WebDriverVault;
+import com.automate.wiki.helper.WikiAutomatorHelper;
 import com.automate.wiki.model.LoggedInUserDetails;
 import com.automate.wiki.service.WikiModifier;
-import com.automate.wiki.service.WikiModifierVerifier;
 import com.automate.wiki.service.WikiSummaryReader;
 
 public class WikiAutoMatorLauncher {
@@ -34,8 +34,7 @@ public class WikiAutoMatorLauncher {
 						final WikiSummaryReader summaryReader = new WikiSummaryReader();
 						summaryReader.readWikiSummary(ConfigReader.isgGenerateDetailedSummaryReport(), true);
 					} else if (userInput == 2) {
-						final WikiModifierVerifier wikiModifierVerifier = new WikiModifierVerifier();
-						wikiModifierVerifier.verifyWikiEntry();
+						WikiAutomatorHelper.generateLatestWikiEntryForDisplay();
 					} else if (userInput == 3) {
 						System.out.println(" ***********************************************************");
 						System.out.println(" * WARNING : Have you verified the details using option 2? *");

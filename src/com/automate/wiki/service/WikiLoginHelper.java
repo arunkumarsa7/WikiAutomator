@@ -17,21 +17,22 @@ public class WikiLoginHelper {
 			webDriver.navigate().to(ConfigReader.getSourceUrl());
 			webDriver.manage().window().maximize();
 			final WebElement loginElement = WebDriverVault
-					.waitAndLoadWebElement(By.xpath("//form[./h2[contains(text(), \"Log in\")]]"));
+					.waitAndLoadWebElement(By.xpath(ConfigReader.getLoginPageVerifyField()));
 			if (loginElement != null) {
-				final WebElement username = webDriver.findElement(By.xpath("//input[@id='os_username']"));
-				final WebElement password = webDriver.findElement(By.xpath("//input[@id='os_password']"));
+				final WebElement username = webDriver.findElement(By.xpath(ConfigReader.getLoginPageUsernameField()));
+				final WebElement password = webDriver.findElement(By.xpath(ConfigReader.getLoginPagePasswordField()));
 				username.clear();
 				password.clear();
 				username.sendKeys(ConfigReader.getWikiUsername());
 				password.sendKeys(ConfigReader.getWikiPassword());
-				webDriver.findElement(By.xpath("//input[@id='loginButton']")).click();
+				webDriver.findElement(By.xpath(ConfigReader.getLoginPageLoginButton())).click();
 
 				webDriver.navigate().to(ConfigReader.getSourceUrl());
 				WebDriverVault.waitAndLoadWebElement(By.xpath(ConfigReader.getParentElementXPath()));
 
-				final WebElement loggedInUserName = webDriver.findElement(By.xpath("//a[@id='user-menu-link']"));
-				LoggedInUserDetails.loggedInUsername = loggedInUserName.getAttribute("title");
+				final WebElement loggedInUserName = webDriver.findElement(By.xpath(ConfigReader.getMainPageUsername()));
+				LoggedInUserDetails.loggedInUsername = loggedInUserName
+						.getAttribute(ConfigReader.getMainPageUsernameAttribute());
 			}
 		} catch (final WebDriverException e) {
 			System.err.println(e.getMessage());

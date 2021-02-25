@@ -6,6 +6,12 @@ import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_P
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_DESTINATION_FILE_LOCATION;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_DETAILED_SUMMARY_REPORT_UPTO_YEAR;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_DISABLE_GPU;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_EDIT_PAGE_EDIT_BUTTON;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_EDIT_PAGE_ELLIPSIS_BUTTON;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_EDIT_PAGE_IFRAME_ID;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_EDIT_PAGE_NOTIFY_WATCHERS_CHECKBOX;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_EDIT_PAGE_PREVIEW_BUTTON;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_EDIT_PAGE_PUBLISH_BUTTON;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_ENTRY_ELEMENT_XPATH;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_ENVIRONMENT;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_GENERATE_DETAILED_SUMMARY_REPORT;
@@ -21,6 +27,12 @@ import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_P
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_ITERATION_WIKI_DISPLAY_DATE_FORMAT;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_ITERATION_WINDOWS_OUT_LOCATION;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_ITERATION_WORKSPACE;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_LOGIN_PAGE_LOGIN_BUTTON;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_LOGIN_PAGE_PASSWORD_FIELD;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_LOGIN_PAGE_USERNAME_FIELD;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_LOGIN_PAGE_VERIFY_FIELD;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_MAIN_PAGE_USERNAME;
+import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_MAIN_PAGE_USERNAME_ATTRIBUTE;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_NEXT_ITERATION_DEFAULT_COMPLETION_TIME;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_NOTIFY_ENTWICKLER_NEWS_WATCHERS;
 import static com.automate.wiki.constant.WikiAutomatorConstants.WIKI_AUTOMATOR_PROPERTY_PARENT_ELEMENT_XPATH;
@@ -221,6 +233,54 @@ public class ConfigReader {
 
 	public static String getWikiPassword() {
 		return appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_PASSWORD);
+	}
+
+	public static String getEditPageIFrameId() {
+		return appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_EDIT_PAGE_IFRAME_ID);
+	}
+
+	public static String getEditPageEditButton() {
+		return appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_EDIT_PAGE_EDIT_BUTTON);
+	}
+
+	public static String getEditPagePreviewButton() {
+		return appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_EDIT_PAGE_PREVIEW_BUTTON);
+	}
+
+	public static String getEditPagePublishButton() {
+		return appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_EDIT_PAGE_PUBLISH_BUTTON);
+	}
+
+	public static String getEditPageEllipsisButton() {
+		return appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_EDIT_PAGE_ELLIPSIS_BUTTON);
+	}
+
+	public static String getEditPageNotifyWatchersCheckbox() {
+		return appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_EDIT_PAGE_NOTIFY_WATCHERS_CHECKBOX);
+	}
+
+	public static String getMainPageUsername() {
+		return appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_MAIN_PAGE_USERNAME);
+	}
+
+	public static String getMainPageUsernameAttribute() {
+		return appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_MAIN_PAGE_USERNAME_ATTRIBUTE);
+	}
+
+	public static String getLoginPageVerifyField() {
+		return appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_LOGIN_PAGE_VERIFY_FIELD);
+	}
+
+	public static String getLoginPageUsernameField() {
+		return appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_LOGIN_PAGE_USERNAME_FIELD);
+	}
+
+	public static String getLoginPagePasswordField() {
+		return appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_LOGIN_PAGE_PASSWORD_FIELD);
+	}
+
+	public static String getLoginPageLoginButton() {
+		return appResourceBundle.getString(WIKI_AUTOMATOR_PROPERTY_LOGIN_PAGE_LOGIN_BUTTON);
 	}
 
 	public static String getProjectLocation() {

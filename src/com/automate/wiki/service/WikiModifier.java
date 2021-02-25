@@ -18,33 +18,33 @@ public class WikiModifier {
 			final WikiSummaryReader summaryReader = new WikiSummaryReader();
 			summaryReader.readWikiSummary(false, false);
 			WebDriverVault.navigateAndMaximize(ConfigReader.getSourceUrl());
-			final WebElement editElement = WebDriverVault.waitAndLoadWebElement(By.xpath("//a[@id='editPageLink']"));
+			final WebElement editElement = WebDriverVault
+					.waitAndLoadWebElement(By.xpath(ConfigReader.getEditPageEditButton()));
 			editElement.click();
 			final WebDriver webDriver = WebDriverVault.getWebDriver();
-			WebDriverVault.switchToFrame(webDriver.findElement(By.id("wysiwygTextarea_ifr")));
+			WebDriverVault.switchToFrame(webDriver.findElement(By.id(ConfigReader.getEditPageIFrameId())));
 			final WebElement entryElement = WebDriverVault
 					.waitAndLoadWebElement(By.xpath(ConfigReader.getEntryElementXPath()));
 			WebDriverVault.getJavascriptExecutor().executeScript(WikiAutomatorHelper.generateLatestWikiEntryForEdit(),
 					entryElement);
 			WebDriverVault.switchToDefault();
-			if (ConfigReader.isNotifyEntwicklerNewsWatchers()) {
-				final WebElement notifyWatchersElement = webDriver
-						.findElement(By.xpath("//input[@id='notifyWatchers']"));
-				if (!notifyWatchersElement.isSelected()) {
-					notifyWatchersElement.click();
-				}
+			final WebElement notifyWatchersElement = webDriver
+					.findElement(By.xpath(ConfigReader.getEditPageNotifyWatchersCheckbox()));
+			if ((ConfigReader.isNotifyEntwicklerNewsWatchers() && !notifyWatchersElement.isSelected())
+					|| (!ConfigReader.isNotifyEntwicklerNewsWatchers() && notifyWatchersElement.isSelected())) {
+				notifyWatchersElement.click();
 			}
 			if (ConfigReader.isPreviewEntwicklerNews()) {
 				final WebElement ellipsisButtonElement = webDriver
-						.findElement(By.xpath("//button[@id='rte-button-ellipsis']"));
+						.findElement(By.xpath(ConfigReader.getEditPageEllipsisButton()));
 				ellipsisButtonElement.click();
 				final WebElement previewButtonElement = webDriver
-						.findElement(By.xpath("//a[@id='rte-button-preview']"));
+						.findElement(By.xpath(ConfigReader.getEditPagePreviewButton()));
 				previewButtonElement.click();
 			}
 			if (ConfigReader.isPublishEntwicklerNews()) {
 				final WebElement publishButtonElement = webDriver
-						.findElement(By.xpath("//button[@id='rte-button-publish']"));
+						.findElement(By.xpath(ConfigReader.getEditPagePublishButton()));
 				publishButtonElement.click();
 			}
 			System.out.println("Entwicklernews updated successfully");

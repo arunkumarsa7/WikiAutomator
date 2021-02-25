@@ -40,6 +40,20 @@ public class WikiAutomatorConstants {
 	public static final String WIKI_AUTOMATOR_PROPERTY_DETAILED_SUMMARY_REPORT_UPTO_YEAR = "automate.wiki.detailed.summary.report.upto.year";
 	public static final String WIKI_AUTOMATOR_PROPERTY_NEXT_ITERATION_DEFAULT_COMPLETION_TIME = "automate.wiki.next.iteration.default.completion.time";
 
+	public static final String WIKI_AUTOMATOR_PROPERTY_MAIN_PAGE_USERNAME = "automate.wiki.main.page.user.name";
+	public static final String WIKI_AUTOMATOR_PROPERTY_MAIN_PAGE_USERNAME_ATTRIBUTE = "automate.wiki.main.page.user.name.attribute";
+	public static final String WIKI_AUTOMATOR_PROPERTY_LOGIN_PAGE_VERIFY_FIELD = "automate.wiki.login.page.verify.field";
+	public static final String WIKI_AUTOMATOR_PROPERTY_LOGIN_PAGE_USERNAME_FIELD = "automate.wiki.login.page.username.field";
+	public static final String WIKI_AUTOMATOR_PROPERTY_LOGIN_PAGE_PASSWORD_FIELD = "automate.wiki.login.page.password.field";
+	public static final String WIKI_AUTOMATOR_PROPERTY_LOGIN_PAGE_LOGIN_BUTTON = "automate.wiki.login.page.login.button";
+
+	public static final String WIKI_AUTOMATOR_PROPERTY_EDIT_PAGE_IFRAME_ID = "automate.wiki.edit.page.iframe.id";
+	public static final String WIKI_AUTOMATOR_PROPERTY_EDIT_PAGE_EDIT_BUTTON = "automate.wiki.edit.page.edit.button";
+	public static final String WIKI_AUTOMATOR_PROPERTY_EDIT_PAGE_PREVIEW_BUTTON = "automate.wiki.edit.page.preview.button";
+	public static final String WIKI_AUTOMATOR_PROPERTY_EDIT_PAGE_PUBLISH_BUTTON = "automate.wiki.edit.page.publish.button";
+	public static final String WIKI_AUTOMATOR_PROPERTY_EDIT_PAGE_ELLIPSIS_BUTTON = "automate.wiki.edit.page.ellipsis.button";
+	public static final String WIKI_AUTOMATOR_PROPERTY_EDIT_PAGE_NOTIFY_WATCHERS_CHECKBOX = "automate.wiki.edit.page.notify.watchers.checkbox";
+
 	public static final String WIKI_AUTOMATOR_PROPERTY_ENTRY_ELEMENT_XPATH = "automate.wiki.entry.element";
 	public static final String WIKI_AUTOMATOR_PROPERTY_PARENT_ELEMENT_XPATH = "automate.wiki.parent.element";
 	public static final String WIKI_AUTOMATOR_PROPERTY_ITERATION_ELEMENT_XPATH = "automate.wiki.iteration.element";
