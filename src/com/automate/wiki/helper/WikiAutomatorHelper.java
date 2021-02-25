@@ -107,14 +107,15 @@ public class WikiAutomatorHelper {
 		final String iterationDate = new SimpleDateFormat(ConfigReader.getIterationWikiDisplayDateFormat())
 				.format(nextIterationDate) + " Uhr";
 
-		System.out.println(" *************************************** ");
-		System.out.println("*\tNext Wiki Entry Details \t*");
-		System.out.println(" *************************************** ");
-		System.out.println("Iteration workspace\t = " + iterationWorkspace);
-		System.out.println("Iteration date\t\t = " + iterationDate);
-		System.out.println("Iteration number\t = " + iterationNumber);
-		System.out.println("Iteration in Linux\t = " + isIterationForLinux);
-		System.out.println("Iteration in Windows\t = " + isIterationForWindows);
+		System.out.println(" ****************************************");
+		System.out.println(" *\tNext Wiki Entry Details\t\t*");
+		System.out.println(" ****************************************");
+		System.out.println(" Iteration workspace\t = " + iterationWorkspace);
+		System.out.println(" Iteration date\t\t = " + iterationDate);
+		System.out.println(" Iteration number\t = " + iterationNumber);
+		System.out.println(" Iteration in Linux\t = " + isIterationForLinux);
+		System.out.println(" Iteration in Windows\t = " + isIterationForWindows);
+		System.out.println(" ****************************************");
 
 		final StringBuilder htmlBuilder = new StringBuilder("\n");
 		htmlBuilder.append(iterationDate);
@@ -218,9 +219,9 @@ public class WikiAutomatorHelper {
 	public static void generateDetailedSummaryReport(final List<TestIterationDetails> childTestIterationDetails) {
 		populateIterationNumberIfEmpty(childTestIterationDetails);
 		final Map<String, List<TestIterationDetails>> detailedIterationSummaryDataMap = new LinkedHashMap<>();
-		System.out.println(" ***********************************************");
-		System.out.println("*\tDetailed Iteration Summary Report \t*");
-		System.out.println(" ***********************************************");
+		System.out.println(" ************************************************");
+		System.out.println(" *\tDetailed Iteration Summary Report\t*");
+		System.out.println(" ************************************************");
 		for (final TestIterationDetails iterationDetails : childTestIterationDetails) {
 			String wikiAuthor = StringUtils.isNotBlank(iterationDetails.getWikiAuthor())
 					? iterationDetails.getWikiAuthor()
@@ -244,10 +245,10 @@ public class WikiAutomatorHelper {
 			final String[] keys = iterationDetails.getKey().split("-");
 			String author = StringUtils.isNotBlank(keys[1]) ? keys[1] : "Guest";
 			author = author.substring(0, Math.min(author.length(), 12));
-			System.out.println("Total number of iterations  done by '" + author + "' in " + keys[0] + " = "
+			System.out.println(" Total number of iterations  done by '" + author + "' in " + keys[0] + " = "
 					+ iterationDetails.getValue().size());
 		}
-		System.out.println(" ***********************************************");
+		System.out.println(" ************************************************");
 	}
 
 	private static void populateIterationNumberIfEmpty(final List<TestIterationDetails> childTestIterationDetails) {
