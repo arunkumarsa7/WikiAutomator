@@ -25,8 +25,9 @@ public class WikiModifier {
 			WebDriverVault.waitAndLoadWebElement(By.xpath(ConfigReader.getEntryElementXPath()));
 			System.out.println("Printing -> ");
 			System.out.println(
-					"document.getElementsByClassName('wrapped confluenceTable')[2].insertAdjacentHTML('afterend','"
-							+ WikiAutomatorHelper.generateLatestWikiEntryForEdit() + "')");
+					"document.getElementsByClassName('wrapped confluenceTable')[2].insertAdjacentHTML('afterend','");
+			System.out.print(WikiAutomatorHelper.generateLatestWikiEntryForEdit());
+			System.out.print("')");
 //			WebDriverVault.getJavascriptExecutor().executeScript(
 //					"document.getElementsByClassName('wrapped confluenceTable')[2].insertAdjacentHTML('afterend','"
 //							+ WikiAutomatorHelper.generateLatestWikiEntryForEdit() + "')");
