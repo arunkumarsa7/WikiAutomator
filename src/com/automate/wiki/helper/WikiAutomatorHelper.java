@@ -210,7 +210,8 @@ public class WikiAutomatorHelper {
 		htmlBuilder.append("von AzTech India");
 		htmlBuilder.append(HTML_ELEMENT_EM_END);
 		htmlBuilder.append("</p>");
-		htmlBuilder.append("<hr>'");
+		htmlBuilder.append("<hr>");
+		System.out.println(htmlBuilder.toString());
 		return htmlBuilder.toString();
 	}
 
