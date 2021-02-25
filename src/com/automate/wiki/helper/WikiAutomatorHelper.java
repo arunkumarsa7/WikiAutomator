@@ -39,13 +39,14 @@ public class WikiAutomatorHelper {
 		final String iterationWorkspace = StringUtils.remove(StringUtils.substringBetween(
 				latIteration.getTestIterationDescription(), "TestKonzept_Fehlers_", ".xlsx"), "_Linux");
 		if (isPrintWikiSummary) {
-			System.out.println("\n ***************************************");
-			System.out.println("*\tLatest Iteration Details \t*");
-			System.out.println(" ***************************************");
-			System.out.println("Last iteration number \t\t = " + latIteration.getTestIterationNumber());
-			System.out.println("Last iteration date \t\t = " + new SimpleDateFormat(ConfigReader.getSummaryDateFormat())
-					.format(latIteration.getTestIterationDate()));
-			System.out.println("Last iteration workspace \t = " + iterationWorkspace);
+			System.out.println("\n ****************************************");
+			System.out.println(" *\tLatest Iteration Details\t*");
+			System.out.println(" ****************************************");
+			System.out.println(" Last iteration number \t\t = " + latIteration.getTestIterationNumber());
+			System.out
+					.println(" Last iteration date \t\t = " + new SimpleDateFormat(ConfigReader.getSummaryDateFormat())
+							.format(latIteration.getTestIterationDate()));
+			System.out.println(" Last iteration workspace \t = " + iterationWorkspace);
 		}
 		final StringJoiner environment = new StringJoiner(" and ");
 		if (StringUtils.containsIgnoreCase(latIteration.getTestIterationDescription(), "Linux")) {
@@ -55,18 +56,19 @@ public class WikiAutomatorHelper {
 			environment.add("Windows");
 		}
 		if (isPrintWikiSummary) {
-			System.out.println("Last iteration environmet \t = " + environment);
-			System.out.println("Next iteration number \t\t = " + latIteration.getNextIterationNumber());
-			System.out.println("Next iteration date \t\t = " + new SimpleDateFormat(ConfigReader.getSummaryDateFormat())
-					.format(latIteration.getNextIterationDate()));
-			System.out.println(" ***************************************");
+			System.out.println(" Last iteration environmet \t = " + environment);
+			System.out.println(" Next iteration number \t\t = " + latIteration.getNextIterationNumber());
+			System.out
+					.println(" Next iteration date \t\t = " + new SimpleDateFormat(ConfigReader.getSummaryDateFormat())
+							.format(latIteration.getNextIterationDate()));
 		}
+		System.out.println(" ****************************************");
 	}
 
 	private static void generatePastIteraionSummary(final List<TestIterationDetails> testIterationDetails) {
-		System.out.println(" ***************************************");
-		System.out.println("*\tRecent Iteration Summary \t*");
-		System.out.println(" ***************************************");
+		System.out.println(" ****************************************");
+		System.out.println(" *\tRecent Iteration Summary\t*");
+		System.out.println(" ****************************************");
 		final Map<String, MutableInt> summaryMap = new LinkedHashMap<>();
 		for (final TestIterationDetails iterationDetails : testIterationDetails) {
 			final Date testIterationDate = iterationDetails.getTestIterationDate();
@@ -80,10 +82,10 @@ public class WikiAutomatorHelper {
 		}
 		for (final Entry<String, MutableInt> summaryMapEntry : summaryMap.entrySet()) {
 			final String[] monthAndYear = summaryMapEntry.getKey().split("_");
-			System.out.println("Number of Test iterations in " + monthAndYear[0] + "\t" + monthAndYear[1] + " = "
+			System.out.println(" Number of Test iterations in " + monthAndYear[0] + "\t" + monthAndYear[1] + " = "
 					+ summaryMapEntry.getValue());
 		}
-		System.out.println(" ***************************************");
+		System.out.println(" ****************************************");
 	}
 
 	public static String getWikiAuthor(final String testIterationDateText) {
