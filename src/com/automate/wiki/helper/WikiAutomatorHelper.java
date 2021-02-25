@@ -160,7 +160,8 @@ public class WikiAutomatorHelper {
 
 		final String HTML_ELEMENT_EM_END = "</em></em>";
 
-		final StringBuilder htmlBuilder = new StringBuilder();
+		final StringBuilder htmlBuilder = new StringBuilder("arguments[0]");
+		htmlBuilder.append(".insertAdjacentHTML('afterend', '");
 		htmlBuilder.append("<h3 id=\\\"");
 		htmlBuilder.append("Entwicklernews-");
 		htmlBuilder.append(new SimpleDateFormat("dd.MM.yyy-HH:mm").format(nextIterationDate));
@@ -210,8 +211,7 @@ public class WikiAutomatorHelper {
 		htmlBuilder.append("von AzTech India");
 		htmlBuilder.append(HTML_ELEMENT_EM_END);
 		htmlBuilder.append("</p>");
-		htmlBuilder.append("<hr>");
-		System.out.println(htmlBuilder.toString());
+		htmlBuilder.append("<hr>');");
 		return htmlBuilder.toString();
 	}
 
