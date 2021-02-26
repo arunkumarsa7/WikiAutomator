@@ -61,8 +61,8 @@ public class WikiAutomatorHelper {
 			System.out
 					.println(" Next iteration date \t\t = " + new SimpleDateFormat(ConfigReader.getSummaryDateFormat())
 							.format(latIteration.getNextIterationDate()));
+			System.out.println(" ****************************************");
 		}
-		System.out.println(" ****************************************");
 	}
 
 	private static void generatePastIteraionSummary(final List<TestIterationDetails> testIterationDetails) {
