@@ -1,0 +1,2 @@
+1. Update button click is not working
+2. Edit entwickler is not working in headless mode
