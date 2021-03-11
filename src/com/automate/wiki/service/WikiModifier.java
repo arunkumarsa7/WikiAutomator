@@ -25,10 +25,9 @@ public class WikiModifier {
 
 			final WebElement iFrameElement = WebDriverVault
 					.waitAndLoadWebElement(By.id(ConfigReader.getEditPageIFrameId()));
-			System.out.println("iFrame element loaded -> " + iFrameElement.getText());
 			WebDriverVault.switchToFrame(iFrameElement);
-			final WebElement entryElement = WebDriverVault.waitAndLoadWebElement(
-					By.xpath(ConfigReader.getEntryElementXPath()));
+			final WebElement entryElement = WebDriverVault
+					.waitAndLoadWebElement(By.xpath(ConfigReader.getEntryElementXPath()));
 			WebDriverVault.getJavascriptExecutor().executeScript(WikiAutomatorHelper.generateLatestWikiEntryForEdit(),
 					entryElement);
 			WebDriverVault.switchToDefault();
