@@ -48,11 +48,11 @@ public class WikiModifier {
 			if (ConfigReader.isPublishEntwicklerNews()) {
 				final WebElement publishButtonElement = webDriver
 						.findElement(By.xpath(ConfigReader.getEditPagePublishButton()));
-				System.out.println("Trying to publish the changes!");
+				System.out.println("INFO : Trying to publish the changes!");
 				publishButtonElement.click();
 			}
 			if (ConfigReader.isPreviewEntwicklerNews() && !ConfigReader.isPublishEntwicklerNews()) {
-				System.out.println("Currently only preview is enabled in the condfiguration.");
+				System.out.println("WARNING : Currently only preview is enabled in the configuration.");
 				System.out.println(
 						"To publish the changes visit the wiki page and click edit, then click the update button after verification.");
 			}
