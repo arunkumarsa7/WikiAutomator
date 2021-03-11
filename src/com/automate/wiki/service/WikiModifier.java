@@ -22,13 +22,16 @@ public class WikiModifier {
 					.waitAndLoadWebElement(By.xpath(ConfigReader.getEditPageEditButton()));
 			editElement.click();
 			final WebDriver webDriver = WebDriverVault.getWebDriver();
-//			System.out.println(webDriver.getPageSource());
-//			WebDriverVault.switchToFrame(webDriver.findElement(By.id(ConfigReader.getEditPageIFrameId())));
+
+			final WebElement iFrameElement = WebDriverVault
+					.waitAndLoadWebElement(By.id(ConfigReader.getEditPageIFrameId()));
+			System.out.println("iFrame element loaded -> " + iFrameElement.getText());
+			WebDriverVault.switchToFrame(iFrameElement);
 			final WebElement entryElement = WebDriverVault.waitAndLoadWebElement(
-					By.xpath("//p[contains(text(), '|| Suche in allen Entwicklernews ||')]//following::div[1]"));
+					By.xpath(ConfigReader.getEntryElementXPath()));
 			WebDriverVault.getJavascriptExecutor().executeScript(WikiAutomatorHelper.generateLatestWikiEntryForEdit(),
 					entryElement);
-//			WebDriverVault.switchToDefault();
+			WebDriverVault.switchToDefault();
 			final WebElement notifyWatchersElement = webDriver
 					.findElement(By.xpath(ConfigReader.getEditPageNotifyWatchersCheckbox()));
 			if ((ConfigReader.isNotifyEntwicklerNewsWatchers() && !notifyWatchersElement.isSelected())
